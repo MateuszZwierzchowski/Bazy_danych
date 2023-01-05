@@ -1,13 +1,14 @@
 var express = require("express");
+require('express-async-errors');
 var app = express();
 var connection = require('./database');
+var setters = require('./dbSetters');
+
+
 
 app.get('/', function(req, res) {
-    let sql = "SELECT * FROM Kategorie";
-    connection.query(sql, function(err, results){
-        if (err) throw err;
-        res.send(results);
-    });
+    setters.getCategory("Smartfony", res);
+    
 });
 
 app.listen(3000, function(){
