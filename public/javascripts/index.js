@@ -12,12 +12,12 @@ function loadTab(tab_number)
 	last_tab = tab_number;
 }
 
-function editRow(id)
+function editRow(ev, id)
 {
 
 	var table = document.getElementById("tab1").rows;
 
-	console.log(id);
+	console.log(ev);
 }
 
 
