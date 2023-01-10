@@ -30,7 +30,7 @@ function editRow(n)
 
 	switch(buttonName) {
 		case 'Edit!' :
-			for (var i=1; i<len; i++) 
+			for (var i=0; i<len; i++) 
 			{
 				var label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('label')[0];
 				var input = document.createElement("input");
@@ -42,16 +42,16 @@ function editRow(n)
 			break;
 
 		case 'Save!' : 
-			var jsonString = '{"sql_data":[';
+			var jsonString = '{"magazyn":[';
 			var check = false;
-			for (var i=1; i<len; i++) 
+			for (var i=0; i<len; i++) 
 			{
 				var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('input')[0];
 				var label = document.createElement("label");
 				label.setAttribute('size', '5');
 				if (edit.value != "") 
 				{
-					jsonString += `{"value${i}":"${edit.value}"},`;
+					jsonString += `{"val":"${edit.value}"},`;
 					check = true;
 				}
 				label.innerText = edit.value;
