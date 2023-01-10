@@ -5,8 +5,7 @@ var connection  = require('../public/javascripts/database.js');
  
 /* GET home page. */
 router.post('/', function(req, res, next){
-    
-  console.log(req.body.text);      
+  console.log(req.body);      
 });
  
  

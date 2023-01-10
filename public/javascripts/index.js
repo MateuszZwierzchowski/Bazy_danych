@@ -12,13 +12,16 @@ function loadTab(tab_number)
 	last_tab = tab_number;
 }
 
-function editRow(ev, id)
+function editRow(ev, i)
 {
-
-	var table = document.getElementById("tab1").rows;
-
-	console.log(ev);
+	i = parseInt(i);
+	//var table = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[i].getElementsByTagName('td')[4].getElementsByTagName('label')[0].innerText = "chuj";
+	
+	let xml = new XMLHttpRequest();
+    xml.open("POST", "/host", true);
+	xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xml.send("dupa");
+	
+	console.log(i);
+	
 }
-
-
-  
