@@ -30,7 +30,7 @@ function editRow(n)
 
 	switch(buttonName) {
 		case 'Edit!' :
-			for (var i=0; i<len; i++) 
+			for (var i=1; i<len; i++) 
 			{
 				var label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('label')[0];
 				var input = document.createElement("input");
@@ -43,21 +43,20 @@ function editRow(n)
 
 		case 'Save!' : 
 			var jsonString = '{"magazyn":[';
-			var check = false;
-			for (var i=0; i<len; i++) 
+
+			var prodId= document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
+			jsonString += `{"val":"${prodId.innerText}"},`;
+
+			for (var i=1; i<len; i++) 
 			{
 				var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('input')[0];
 				var label = document.createElement("label");
 				label.setAttribute('size', '5');
-				if (edit.value != "") 
-				{
-					jsonString += `{"val":"${edit.value}"},`;
-					check = true;
-				}
+				jsonString += `{"val":"${edit.value}"},`;
 				label.innerText = edit.value;
 				edit.replaceWith(label);
 			}
-			if (check == true) jsonString = jsonString.slice(0, -1);
+			jsonString = jsonString.slice(0, -1);
 			jsonString += ']}';
 			postData(jsonString);
 

@@ -8,10 +8,9 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var expressRouter = require('./routes/express.js');
 var hostRouter = require('./routes/host.js');
+var errorRouter = require('./routes/errors.js')
 
 var app = express();
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +35,7 @@ app.use(session({
 
 app.use('/', expressRouter);
 app.use('/host', hostRouter);
+app.use('/error', errorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {
