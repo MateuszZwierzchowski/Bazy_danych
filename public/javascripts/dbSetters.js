@@ -24,7 +24,7 @@ function setClient(name, surname, login, password) {
 }
 
 
-function getWarehouse(res, req) {
+function getWarehouse(res, req, next) {
     let sql;
 
     sql = `SELECT P.PRODUKT_ID, M.ILOŚĆ, K.KATEGORIA, P.MARKA, P.MODEL, P.CENA, P.PROCESOR, P.MOC, P.WAGA, P.PRZEKĄTNA_EKRANU, P.ROZDZIELCZOŚĆ 
@@ -34,10 +34,15 @@ function getWarehouse(res, req) {
     connection.query(sql, function(err, rows){
         if(err){
             req.flash('error', err); 
-            res.render('index',{page_title:"Index - Node.js",warehouse:''});   
-            }else{   
-                res.render('index',{page_title:"Index - Node.js",warehouse:rows});
+            res.render('index', {page_title:"Index - Node.js", warehouse: ''});   
+        }else{ 
+            let mess = req.flash('message');
+            if (mess.length == 0) res.render('index',{page_title:"Index - Node.js", warehouse: rows, message: ""});
+            else {
+                res.send({message: mess[0]});
+                console.log("DUUUUUUPA");
             }
+        }
     });
 
 }

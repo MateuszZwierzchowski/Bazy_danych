@@ -3,20 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var flash = require('express-flash');
+var flash = require('connect-flash');
 var session = require('express-session');
-var bodyParser = require('body-parser');
-var expressRouter = require('./routes/express.js');
-var hostRouter = require('./routes/host.js');
-var errorRouter = require('./routes/errors.js')
 
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(flash());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,15 +17,22 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 app.use(session({ 
   secret: '123456cat',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 60000 }
-}))
+}));
+app.use(flash());
+app.disable('etag');
 
+// view engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+var expressRouter = require('./routes/express.js');
+var hostRouter = require('./routes/host.js');
 
 app.use('/', expressRouter);
 app.use('/host', hostRouter);
-app.use('/error', errorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

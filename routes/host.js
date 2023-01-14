@@ -30,20 +30,20 @@ router.post('/', function(req, res, next){
 
       connection.query(sqlString, function(err, rows){
         if(err){
-            return res.render('../views/dberror',{page_title:"ERROR"});
-            console.log("ERROR: CANNOT UPDATE MAGAZYN!");
+            req.flash('message', 'SQL error!');
+            res.redirect('/');
+            
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!");
         }
       });
 
-      var chk = 0;
+      /*var chk = 0;
       sqlString = "UPDATE mydb.PRODUKT SET ";
       console.log(data)
       for(var i=3; i<cellToUpdate.length; i++)
       {
         chk++;
-        if (data[key][i]["val"] == '') continue;
         if (cellToUpdate[i][Object.keys(cellToUpdate[i])[0]] == true) sqlString += `${Object.keys(cellToUpdate[i])[0]} = ${data[key][i]["val"]}, `;
         else sqlString += `${Object.keys(cellToUpdate[i])[0]} = '${data[key][i]["val"]}', `;
       }
@@ -65,7 +65,7 @@ router.post('/', function(req, res, next){
       });
       break
     default:
-      console.log("ERROR: wrong key!");
+      console.log("ERROR: wrong key!");*/
   }
 
 });
