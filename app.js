@@ -29,11 +29,21 @@ app.disable('etag');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-var expressRouter = require('./routes/warehouseExpress.js');
+var warehouseExpressRouter = require('./routes/warehouseExpress.js');
+var productsExpressRouter = require('./routes/productsExpress.js');
+var categoriesExpressRouter = require('./routes/categoriesExpress.js');
+var ordersExpressRouter = require('./routes/ordersExpress.js');
+var returnsExpressRouter = require('./routes/returnsExpress.js');
+var complaintsExpressRouter = require('./routes/complaintsExpress.js');
 var updateRouter = require('./routes/update.js');
 var addRouter = require('./routes/add.js');
 
-app.use('/', expressRouter);
+app.use('/', warehouseExpressRouter);
+app.use('/products', productsExpressRouter);
+app.use('/categories', categoriesExpressRouter);
+app.use('/orders', ordersExpressRouter);
+app.use('/returns', returnsExpressRouter);
+app.use('/complaints', complaintsExpressRouter);
 app.use('/update', updateRouter);
 app.use('/add', addRouter);
 
