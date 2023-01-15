@@ -29,8 +29,8 @@ app.disable('etag');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-var expressRouter = require('./routes/express.js');
-var hostRouter = require('./routes/host.js');
+var expressRouter = require('./routes/warehouseExpress.js');
+var hostRouter = require('./routes/warehouseHost.js');
 var addRouter = require('./routes/add.js');
 
 app.use('/', expressRouter);
