@@ -6,6 +6,7 @@ var connection  = require('../public/javascripts/database.js');
 router.post('/', function(req, res, next) {
     data = JSON.parse(JSON.stringify(req.body));
     key = Object.keys(data)[0]; 
+    console.log(data);
 
     switch(key)
     {
@@ -18,10 +19,10 @@ router.post('/', function(req, res, next) {
                 {"PROCESOR": false},
                 {"MOC": true},
                 {"PRZEKĄTNA_EKRANU": true},
-                {"ROZDZIELCZOŚĆ": false},
-                {"KARTA_GRAFICZNA": false},
-                {"ILOŚĆ PAMIĘCI RAM": true},
-                {"KATEGORIA_KATEGORIA_ID": false}
+                //{"ROZDZIELCZOŚĆ": false}
+                //{"KARTA_GRAFICZNA": false},
+                //{"ILOŚĆ PAMIĘCI RAM": true},
+                {"KATEGORIE_KATEGORIA_ID": true}
               ];
             
             var chk = false;
@@ -47,6 +48,19 @@ router.post('/', function(req, res, next) {
             }
             sqlString = sqlString.substring(0,sqlString.length-1);
             sqlString += `)`;
+
+            console.log(sqlString);
+
+            connection.query(sqlString, function(err, rows){
+              if(err){
+                req.flash('message', err.message);
+                res.redirect('/products');
+              }else{   
+                console.log("SUCCESS: MAGAZYN UPDATED!"); 
+                res.redirect('/products');
+              }
+            });
+
             break; 
         case 'magazyn':
             var sqlString = `INSERT INTO MAGAZYN(ILOŚĆ, PRODUKT_PRODUKT_ID) VALUES(${data[key][1]}, ${data[key][0]})`;
