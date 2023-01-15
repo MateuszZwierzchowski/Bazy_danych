@@ -30,12 +30,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 var expressRouter = require('./routes/warehouseExpress.js');
-var warehouseHostRouter = require('./routes/warehouseHost.js');
-var addRouter = require('./routes/warehouseAdd.js');
+var updateRouter = require('./routes/update.js');
+var addRouter = require('./routes/add.js');
 
 app.use('/', expressRouter);
-app.use('/warehouseHost', warehouseHostRouter);
-app.use('/warehouseAdd', addRouter);
+app.use('/update', updateRouter);
+app.use('/add', addRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

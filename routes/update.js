@@ -9,6 +9,7 @@ router.post('/', function(req, res, next){
   key = Object.keys(data)[0];
   var sqlString = "";
 
+  console.log('')
   switch(key)
   {
     case 'magazyn':
