@@ -101,7 +101,10 @@
                             <td><label> <%=warehouse[i].MODEL%> </label></td>
                             <td><label> <%=warehouse[i].CENA%> </label></td>
                             <td><label> <%=warehouse[i].WAGA%> </label></td>
-                            <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
+                            <td>
+                                <button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button>
+                                <button type="button" id ='Delete<%= i %>'>Delete!</button>
+                            </td>  
                         </tr>
 
                         <% }
