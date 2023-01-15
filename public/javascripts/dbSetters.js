@@ -39,8 +39,7 @@ function getWarehouse(res, req, next) {
             let mess = req.flash('message');
             if (mess.length == 0) res.render('index',{page_title:"Index - Node.js", warehouse: rows, message: ""});
             else {
-                res.send({message: mess[0]});
-                console.log("DUUUUUUPA");
+                res.render('index',{page_title:"Index - Node.js", warehouse: rows, message: mess[0]});
             }
         }
     });

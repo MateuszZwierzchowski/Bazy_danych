@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
  
- 
 /* GET home page. */
 router.post('/', function(req, res, next){
-  data = JSON.parse(req.body['json']);
+  data = JSON.parse(JSON.stringify(req.body))['json'];
+  data = JSON.parse(data);
   key = Object.keys(data)[0];
   var sqlString = "";
 
@@ -26,46 +26,46 @@ router.post('/', function(req, res, next){
         {"ROZDZIELCZOŚĆ": false}
       ];
 
-      sqlString = `UPDATE mydb.MAGAZYN SET ${Object.keys(cellToUpdate[1])[0]} = ${data[key][1]["val"]} WHERE ${Object.keys(cellToUpdate[0])[0]} = ${data[key][0]["val"]}`;
-
-      connection.query(sqlString, function(err, rows){
-        if(err){
+      function test() {
+        var chk = 0;
+        var sqlString = "UPDATE mydb.PRODUKT SET ";
+        for(var i=3; i<cellToUpdate.length; i++)
+        {
+          chk++;
+          if (cellToUpdate[i][Object.keys(cellToUpdate[i])[0]] == true) sqlString += `${Object.keys(cellToUpdate[i])[0]} = ${data[key][i]["val"]}, `;
+          else sqlString += `${Object.keys(cellToUpdate[i])[0]} = '${data[key][i]["val"]}', `;
+        }
+      
+        if (chk != 0)
+        {
+          sqlString = sqlString.substring(0,sqlString.length-2);
+          sqlString += ` WHERE PRODUKT_ID = ${data[key][0]["val"]}`;
+        }
+      
+        connection.query(sqlString, function(err, rows){
+          if(err){
             req.flash('message', 'SQL error!');
             res.redirect('/');
-            
+          }else{   
+            console.log("SUCCESS: PRODUKT UPDATED!");
+            res.redirect('/');
+          }
+        });
+      }
+
+      sqlString = `UPDATE mydb.MAGAZYN SET ${Object.keys(cellToUpdate[1])[0]} = ${data[key][1]["val"]} WHERE ${Object.keys(cellToUpdate[0])[0]} = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', 'SQL error!');
+          test();
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!");
+          test();          
         }
       });
-
-      /*var chk = 0;
-      sqlString = "UPDATE mydb.PRODUKT SET ";
-      console.log(data)
-      for(var i=3; i<cellToUpdate.length; i++)
-      {
-        chk++;
-        if (cellToUpdate[i][Object.keys(cellToUpdate[i])[0]] == true) sqlString += `${Object.keys(cellToUpdate[i])[0]} = ${data[key][i]["val"]}, `;
-        else sqlString += `${Object.keys(cellToUpdate[i])[0]} = '${data[key][i]["val"]}', `;
-      }
-
-      if (chk != 0)
-      {
-        sqlString = sqlString.substring(0,sqlString.length-2);
-        sqlString += ` WHERE PRODUKT_ID = ${data[key][0]["val"]}`;
-      }
-
-      console.log(sqlString)
-
-      connection.query(sqlString, function(err, rows){
-        if(err){
-            console.log(err);
-        }else{   
-          console.log("SUCCESS: PRODUKT UPDATED!");
-        }
-      });
-      break
+      break;
     default:
-      console.log("ERROR: wrong key!");*/
+      console.log("ERROR: wrong key!");
   }
 
 });

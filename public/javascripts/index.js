@@ -46,7 +46,7 @@ function editRow(n)
 
 			var prodId= document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
 			jsonString += `{"val":"${prodId.innerText}"},`;
-
+			
 			for (var i=1; i<len; i++) 
 			{
 				var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('input')[0];
@@ -58,7 +58,21 @@ function editRow(n)
 			}
 			jsonString = jsonString.slice(0, -1);
 			jsonString += ']}';
-			postData(jsonString);
+
+			let form = document.createElement("form");
+			form.method = "post";
+			form.action = "/host";
+			document.body.appendChild(form);
+
+			var hiddeninput = document.createElement("input");
+			hiddeninput.setAttribute("type", "hidden");
+			hiddeninput.setAttribute("name", "json");
+			hiddeninput.setAttribute("value", jsonString);
+			form.appendChild(hiddeninput);
+
+			form.submit();
+
+			//postData(jsonString);
 
 			document.getElementById(n).innerText = "Edit!";
 			break;
