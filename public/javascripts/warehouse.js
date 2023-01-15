@@ -6,30 +6,12 @@ function editRow(n)
 
 	switch(buttonName) {
 		case 'Edit!' :
-			var select = document.createElement('select');
-			select.setAttribute("id", "catSel");
-			let categoriesLabels = document.getElementById('categories').getElementsByTagName("label");
-			for (var i=0; i<categoriesLabels.length; i++) 
-			{
-				console.log(i);
-				var option = document.createElement('option');
-				option.setAttribute("value", categoriesLabels[i].innerText);
-				option.textContent = categoriesLabels[i].innerText;
-				select.appendChild(option);
-			}
+			var label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[1].getElementsByTagName('label')[0];
+			var input = document.createElement("input");
+			input.setAttribute('size', '5');
+			input.value = label.innerText;
+			label.replaceWith(input);
 
-			var label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[2].getElementsByTagName('label')[0];
-			label.replaceWith(select);
-
-			for (var i=1; i<len; i++) 
-			{
-				if (i == 2) continue;
-				label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('label')[0];
-				var input = document.createElement("input");
-				input.setAttribute('size', '5');
-				input.value = label.innerText;
-				label.replaceWith(input);
-			}
 			document.getElementById(n).innerText = "Save!";
 			break;
 
@@ -38,25 +20,14 @@ function editRow(n)
 
 			var prodId= document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
 			jsonString += `{"val":"${prodId.innerText}"},`;
-			for (var i=1; i<len; i++) 
-			{
-				if (i == 2) {
-					var select = document.getElementById('catSel');
-					var label = document.createElement("label");
-					label.setAttribute('size', '5');
-					jsonString += `{"val":"${select.selectedOptions[0].textContent}"},`;
-					label.innerText = select.selectedOptions[0].textContent;
-					select.replaceWith(label);
-					
-				} else {
-					var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('input')[0];
-					var label = document.createElement("label");
-					label.setAttribute('size', '5');
-					jsonString += `{"val":"${edit.value}"},`;
-					label.innerText = edit.value;
-					edit.replaceWith(label);
-				}
-			}
+			
+			var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[1].getElementsByTagName('input')[0];
+			var label = document.createElement("label");
+			label.setAttribute('size', '5');
+			jsonString += `{"val":"${edit.value}"},`;
+			label.innerText = edit.value;
+			edit.replaceWith(label);
+
 			jsonString = jsonString.slice(0, -1);
 			jsonString += ']}';
 
@@ -78,9 +49,4 @@ function editRow(n)
 		default:
 			console.log("ERROR: WRONG BUTTON NAME!");
 	}
-}
-
-function addRow() 
-{
-	
 }
