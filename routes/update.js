@@ -13,7 +13,6 @@ router.post('/', function(req, res, next){
   {
     case 'magazyn':
       var sqlString = `UPDATE MAGAZYN SET ILOŚĆ = ${data[key][1]["val"]} WHERE PRODUKT_PRODUKT_ID = ${data[key][0]["val"]}`;
-      console.log(sqlString);
       connection.query(sqlString, function(err, rows){
         if(err){;
           req.flash('message', err.message);

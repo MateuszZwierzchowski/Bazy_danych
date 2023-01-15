@@ -18,10 +18,10 @@ router.post('/', function(req, res, next) {
                 {"PROCESOR": false},
                 {"MOC": true},
                 {"PRZEKĄTNA_EKRANU": true},
-                {"ROZDZIELCZOŚĆ": false}
-                //{"KARTA_GRAFICZNA": false},
-                //{"ILOŚĆ PAMIĘCI RAM": true},
-                //{"KATEGORIA_KATEGORIA_ID": false}
+                {"ROZDZIELCZOŚĆ": false},
+                {"KARTA_GRAFICZNA": false},
+                {"ILOŚĆ PAMIĘCI RAM": true},
+                {"KATEGORIA_KATEGORIA_ID": false}
               ];
             
             var chk = false;
@@ -48,33 +48,22 @@ router.post('/', function(req, res, next) {
             sqlString = sqlString.substring(0,sqlString.length-1);
             sqlString += `)`;
             break; 
-        case 'produkt':
-            var productFeatures = [
-                {"MARKA": false},
-                {"MODEL": false},
-                {"CENA": true},
-                {"WAGA": true},
-                {"PROCESOR": false},
-                {"MOC": true},
-                {"PRZEKĄTNA_EKRANU": true},
-                {"ROZDZIELCZOŚĆ": false}
-                //{"KARTA_GRAFICZNA": false},
-                //{"ILOŚĆ PAMIĘCI RAM": true},
-                //{"KATEGORIA_KATEGORIA_ID": false}
-              ];
-              
+        case 'magazyn':
+            var sqlString = `INSERT INTO MAGAZYN(ILOŚĆ, PRODUKT_PRODUKT_ID) VALUES(${data[key][1]}, ${data[key][0]})`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/');
+                }else{   
+                  console.log("SUCCESS: MAGAZYN UPDATED!"); 
+                  res.redirect('/');
+                }
+              });
             break;
         default:
             break;
     }
-    
 
-    /*connection.query(sql, function(err, results){
-        if (err) throw err;
-        console.log("1 record inserted");
-    });*/
-
-    res.redirect('/');
 });
 
 module.exports = router;
