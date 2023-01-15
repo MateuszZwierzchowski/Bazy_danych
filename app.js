@@ -31,7 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 var expressRouter = require('./routes/warehouseExpress.js');
 var warehouseHostRouter = require('./routes/warehouseHost.js');
-var addRouter = require('./routes/add.js');
+var addRouter = require('./routes/warehouseAdd.js');
 
 app.use('/', expressRouter);
 app.use('/warehouseHost', warehouseHostRouter);
