@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
+var container;
 app.use(session({ 
   secret: '123456cat',
   resave: true,
@@ -30,9 +31,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 var expressRouter = require('./routes/express.js');
 var hostRouter = require('./routes/host.js');
+var addRouter = require('./routes/add.js');
 
 app.use('/', expressRouter);
 app.use('/host', hostRouter);
+app.use('/add', addRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

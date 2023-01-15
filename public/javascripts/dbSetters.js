@@ -12,6 +12,7 @@ function setCategory(category) {
 
 }
 
+
 function setClient(name, surname, login, password) {
 
     let sql = `INSERT INTO KATEGORIE(IMIĘ, NAZWISKO, LOGIN, HASŁO) VALUES(\'${name}\',\'${surname}\',\'${login}\',\'${password}\')`;
@@ -25,25 +26,31 @@ function setClient(name, surname, login, password) {
 
 
 function getWarehouse(res, req, next) {
-    let sql;
-
-    sql = `SELECT P.PRODUKT_ID, M.ILOŚĆ, K.KATEGORIA, P.MARKA, P.MODEL, P.CENA, P.PROCESOR, P.MOC, P.WAGA, P.PRZEKĄTNA_EKRANU, P.ROZDZIELCZOŚĆ 
+    let sql = `SELECT P.PRODUKT_ID, M.ILOŚĆ, K.KATEGORIA, P.MARKA, P.MODEL, P.CENA, P.PROCESOR, P.MOC, P.WAGA, P.PRZEKĄTNA_EKRANU, P.ROZDZIELCZOŚĆ 
     FROM mydb.magazyn M JOIN mydb.PRODUKT P ON P.PRODUKT_ID = M.PRODUKT_PRODUKT_ID
     LEFT OUTER JOIN mydb.KATEGORIE K ON P.KATEGORIE_KATEGORIA_ID = K.KATEGORIA_ID`;
 
-    connection.query(sql, function(err, rows){
-        if(err){
-            req.flash('error', err); 
-            res.render('index', {page_title:"Index - Node.js", warehouse: ''});   
-        }else{ 
-            let mess = req.flash('message');
-            if (mess.length == 0) res.render('index',{page_title:"Index - Node.js", warehouse: rows, message: ""});
-            else {
-                res.render('index',{page_title:"Index - Node.js", warehouse: rows, message: mess[0]});
-            }
+    connection.query(sql, function(err1, mpRows){
+        function getCategory(res, req, mpRows) {
+            let sql = `SELECT KATEGORIA FROM KATEGORIE`;
+            connection.query(sql, function(err2, kRows){
+                if(err2) {
+                    res.render('index', {page_title:"error2", warehouse: ''});
+                }    
+                else {
+                    const mess = req.flash('message');
+                    if (mess.length == 0) res.render('index', {page_title:"succes12", warehouse: mpRows, message: "", categories: kRows});
+                    else res.render('index', {page_title:"succes12", warehouse: mpRows, message: mess[0], categories: kRows});
+                }  
+            });
         }
+        if(err1){
+            req.flash('error', err1); 
+            res.render('index', {page_title:"error1", warehouse: ''});   
+            return;
+        }
+        getCategory(res, req, mpRows);
     });
-
 }
 
 module.exports = {getWarehouse}

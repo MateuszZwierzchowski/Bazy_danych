@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
  
-/* GET home page. */
+
 router.post('/', function(req, res, next){
   data = JSON.parse(JSON.stringify(req.body))['json'];
   data = JSON.parse(data);
@@ -29,6 +29,9 @@ router.post('/', function(req, res, next){
       function test() {
         var chk = 0;
         var sqlString = "UPDATE mydb.PRODUKT SET ";
+        
+        sqlString += `Kategorie_Kategoria_ID = (SELECT KATEGORIA_ID FROM KATEGORIE WHERE KATEGORIA = '${data[key][2]["val"]}'), `;
+        
         for(var i=3; i<cellToUpdate.length; i++)
         {
           chk++;
@@ -44,7 +47,7 @@ router.post('/', function(req, res, next){
       
         connection.query(sqlString, function(err, rows){
           if(err){
-            req.flash('message', 'SQL error!');
+            req.flash('message', err.message);
             res.redirect('/');
           }else{   
             console.log("SUCCESS: PRODUKT UPDATED!");
@@ -56,7 +59,7 @@ router.post('/', function(req, res, next){
       sqlString = `UPDATE mydb.MAGAZYN SET ${Object.keys(cellToUpdate[1])[0]} = ${data[key][1]["val"]} WHERE ${Object.keys(cellToUpdate[0])[0]} = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', 'SQL error!');
+          req.flash('message', err.message);
           test();
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!");
@@ -67,8 +70,9 @@ router.post('/', function(req, res, next){
     default:
       console.log("ERROR: wrong key!");
   }
-
 });
+
+
  
  
 module.exports = router;
