@@ -62,7 +62,7 @@ function editRow(n)
 
 			let form = document.createElement("form");
 			form.method = "post";
-			form.action = "/host";
+			form.action = "/warehouseHost";
 			document.body.appendChild(form);
 
 			var hiddeninput = document.createElement("input");
