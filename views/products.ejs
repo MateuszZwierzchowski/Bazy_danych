@@ -24,27 +24,27 @@
 
         <div class="btn-group-wrapper"> 
             <div class="btn-group">
-            <form action="/action_page.php">
+            <form action="/">
                 <input type="submit" value="Magazyn">
             </form>
     
-            <form action="/action_page.php">
+            <form action="/products">
                 <input type="submit" value="Produkty">
             </form>
     
-            <form action="/action_page.php">
+            <form action="/categories">
                 <input type="submit" value="Kategorie">
             </form>
     
-            <form action="/action_page.php">
+            <form action="/orders">
                 <input type="submit" value="Zamówienia">
             </form>
     
-            <form action="/action_page.php">
+            <form action="/returns">
                 <input type="submit" value="Zwroty">
             </form>
     
-            <form action="/action_page.php">
+            <form action="/complaints">
                 <input type="submit" value="Reklamacje">
             </form>
         </div>
@@ -56,8 +56,15 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th>PRODUKT ID</th>
-                            <th>ILOŚĆ</th>
+                            <th>KATEGORIA</th>
+                            <th>MARKA</th>
+                            <th>MODEL</th>
+                            <th>CENA</th>
+                            <th>WAGA</th>
+                            <th>PROCESOR</th>
+                            <th>MOC</th>
+                            <th>PRZEKĄTNA EKRANU</th>
+                            <th>ROZDZIELCZOŚĆ</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -65,6 +72,12 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
                                 <td><input name="magazyn" size="5"/></td>
                                 <td><input name="magazyn" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
@@ -80,12 +93,15 @@
                         <tr>
                             <th>#</th>
                             <th>PRODUKT ID</th>
-                            <th>ILOŚĆ</th>
                             <th>KATEGORIA</th>
                             <th>MARKA</th>
                             <th>MODEL</th>
                             <th>CENA</th>
                             <th>WAGA</th>
+                            <th>PROCESOR</th>
+                            <th>MOC</th>
+                            <th>PRZEKĄTNA EKRANU</th>
+                            <th>ROZDZIELCZOŚĆ</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -95,12 +111,15 @@
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
                             <td><label> <%=warehouse[i].PRODUKT_ID%> </label></td>
-                            <td><label> <%=warehouse[i].ILOŚĆ%> </label></td>
                             <td><label> <%=warehouse[i].KATEGORIA%> </label></td>
                             <td><label> <%=warehouse[i].MARKA%> </label></td>
                             <td><label> <%=warehouse[i].MODEL%> </label></td>
                             <td><label> <%=warehouse[i].CENA%> </label></td>
                             <td><label> <%=warehouse[i].WAGA%> </label></td>
+                            <td><label> <%=warehouse[i].PROCESOR%> </label></td>
+                            <td><label> <%=warehouse[i].MOC%> </label></td>
+                            <td><label> <%=warehouse[i].PRZEKĄTNA_EKRANU%> </label></td>
+                            <td><label> <%=warehouse[i].ROZDZIELCZOŚĆ%> </label></td>
                             <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
                         </tr>
 

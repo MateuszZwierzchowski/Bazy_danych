@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
-const { getWarehouse } = require('../public/javascripts/dbSetters.js');
+const { getProducts } = require('../public/javascripts/dbSetters.js');
  
  
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  getWarehouse(res, req, next);  
+  getProducts(res, req, next);  
 });
 
 module.exports = router;
