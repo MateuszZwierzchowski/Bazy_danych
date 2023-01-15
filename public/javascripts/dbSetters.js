@@ -35,18 +35,18 @@ function getWarehouse(res, req, next) {
             let sql = `SELECT KATEGORIA FROM KATEGORIE`;
             connection.query(sql, function(err2, kRows){
                 if(err2) {
-                    res.render('index', {page_title:"error2", warehouse: ''});
+                    res.render('warehouse', {page_title:"error2", warehouse: ''});
                 }    
                 else {
                     const mess = req.flash('message');
-                    if (mess.length == 0) res.render('index', {page_title:"succes12", warehouse: mpRows, message: "", categories: kRows});
-                    else res.render('index', {page_title:"succes12", warehouse: mpRows, message: mess[0], categories: kRows});
+                    if (mess.length == 0) res.render('warehouse', {page_title:"succes12", warehouse: mpRows, message: "", categories: kRows});
+                    else res.render('warehouse', {page_title:"succes12", warehouse: mpRows, message: mess[0], categories: kRows});
                 }  
             });
         }
         if(err1){
             req.flash('error', err1); 
-            res.render('index', {page_title:"error1", warehouse: ''});   
+            res.render('warehouse', {page_title:"error1", warehouse: ''});   
             return;
         }
         getCategory(res, req, mpRows);
