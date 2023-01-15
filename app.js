@@ -35,7 +35,7 @@ var addRouter = require('./routes/warehouseAdd.js');
 
 app.use('/', expressRouter);
 app.use('/warehouseHost', warehouseHostRouter);
-app.use('/add', addRouter);
+app.use('/warehouseAdd', addRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {
