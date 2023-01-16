@@ -65,7 +65,10 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th>Kategoria</th>
+                            <th>IMIĘ</th>
+                            <th>NAZWISKO</th>
+                            <th>LOGIN</th>
+                            <th>HASŁO</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -73,7 +76,10 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
-                                <td><input name="kategoria" size="5"/></td>
+                                <td><input name="klient" size="5"/></td>
+                                <td><input name="klient" size="5"/></td>
+                                <td><input name="klient" size="5"/></td>
+                                <td><input name="klient" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
@@ -86,8 +92,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Kategoria ID</th>
-                            <th>Kategoria</th>
+                            <th>KLIENT ID</th>
+                            <th>IMIĘ</th>
+                            <th>NAZWISKO</th>
+                            <th>LOGIN</th>
+                            <th>HASŁO</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -97,10 +106,13 @@
                         for(var i = 0; i< warehouse.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
-                            <td><label> <%=warehouse[i].KATEGORIA_ID%> </label></td>
-                            <td><label> <%=warehouse[i].KATEGORIA%> </label></td>
+                            <td><label> <%=warehouse[i].KLIENT_ID%> </label></td>
+                            <td><label> <%=warehouse[i].IMIĘ%> </label></td>
+                            <td><label> <%=warehouse[i].NAZWISKO%> </label></td>
+                            <td><label> <%=warehouse[i].LOGIN%> </label></td>
+                            <td><label> <%=warehouse[i].HASŁO%> </label></td>
                             <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
-                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].KATEGORIA_ID %>')">Delete!</button></td>  
+                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].KLIENT_ID %>')">Delete!</button></td>  
                         </tr>
                         </tr>
 
