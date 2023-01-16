@@ -20,8 +20,29 @@ function getReturns(res, req, next) {
 }
 
 
+function getCarriers(res, req, next) {
+    let sql = `SELECT NAZWA_PRZEWOŹNIKA FROM PRZEWOŹNIK`;
+
+    connection.query(sql, function(err, rows){
+        if(err){
+            req.flash('error', err); 
+            res.render('carriers', {page_title:"error", warehouse: ''});   
+            return;
+        } else {
+            const mess = req.flash('message');
+            if (mess.length == 0) res.render('carriers', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('carriers', {page_title:"succes", warehouse: rows, message: mess[0]});
+        }
+    });
+}
+
+
+
 function getComplaints(res, req, next) {
-    let sql = `SELECT KATEGORIA FROM mydb.KATEGORIE`;
+    let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
+    FROM reklamacje R
+    LEFT OUTER JOIN ZAMÓWIENIA Z ON Z.ZAMÓWIENIE_ID=R.ZAMÓWIENIA_ZAMÓWIENIE_ID
+    LEFT OUTER JOIN STANY S ON R.STANY_STAN_ID=S.STAN_ID`;
 
     connection.query(sql, function(err, rows){
         if(err){
@@ -56,22 +77,40 @@ function getOrdersContents(res, req, next) {
 
 
 function getOrders(res, req, next) {
-    let sql = `SELECT Z.ZAMÓWIENIE_ID, Z.DATA_ZAMÓWIENIA, S.NAZWA_STANU, P.NAZWA_PRZEWOŹNIKA, K.IMIĘ, K.NAZWISKO
+    let sql1 = `SELECT Z.ZAMÓWIENIE_ID, Z.DATA_ZAMÓWIENIA, S.NAZWA_STANU, P.NAZWA_PRZEWOŹNIKA, K.IMIĘ, K.NAZWISKO
     FROM ZAMÓWIENIA Z 
     LEFT OUTER JOIN STANY S ON Z.STANY_STAN_ID=S.STAN_ID
     LEFT OUTER JOIN PRZEWOŹNIK P ON Z.PRZEWOŹNIK_PRZEWOŹNIK_ID=P.PRZEWOŹNIK_ID
     LEFT OUTER JOIN KLIENT K ON Z.KLIENT_KLIENT_ID=K.KLIENT_ID`;
-
-    connection.query(sql, function(err, rows){
-        if(err){
-            req.flash('error', err); 
-            res.render('orders', {page_title:"error", warehouse: ''});   
-            return;
-        } else {
-            const mess = req.flash('message');
-            if (mess.length == 0) res.render('orders', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('orders', {page_title:"succes", warehouse: rows, message: mess[0]});
+    connection.query(sql1, function (err1, rows1) {
+        function getCarriers(res, req, rows1) {
+            let sql2 = `SELECT NAZWA_PRZEWOŹNIKA FROM PRZEWOŹNIK`;
+            connection.query(sql2, function (err2, rows2) {
+                function getStates(res, req, rows2, rows1) {
+                    let sql3 = `SELECT NAZWA_STANU FROM STANY`;
+                    connection.query(sql3, function (err3, rows3) {
+                        if (err3) {
+                            res.render('orders', { page_title: "error3", warehouse: '' });
+                        }
+                        else {
+                            const mess = req.flash('message');
+                            if (mess.length == 0) res.render('orders', { page_title: "succes12", warehouse: rows1, message: "", carriers: rows2, states: rows3 });
+                            else res.render('orders', { page_title: "succes12", warehouse: mpRows, message: mess[0], carriers: rows2, states: rows3 });
+                        }
+                    });
+                }
+                if (err2) {
+                    res.render('orders', { page_title: "error2", warehouse: '' });
+                }
+                getStates(res, req, rows2, rows1);
+            });
         }
+        if (err1) {
+            req.flash('error', err1);
+            res.render('orders', { page_title: "error1", warehouse: '' });
+            return;
+        }
+        getCarriers(res, req, rows1);
     });
 }
 
@@ -142,4 +181,4 @@ function getWarehouse(res, req, next) {
     });
 }
 
-module.exports = {getWarehouse, getProducts, getCategories, getOrders, getOrdersContents, getComplaints, getReturns}
+module.exports = {getWarehouse, getProducts, getCategories, getOrders, getOrdersContents, getComplaints, getReturns, getCarriers}

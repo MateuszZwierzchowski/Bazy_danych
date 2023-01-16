@@ -49,8 +49,9 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th>PRODUKT ID</th>
-                            <th>ILOŚĆ</th>
+                            <th>ID ZAMÓWIENIA</th>
+                            <th>ID PRODUKTU</th>
+                            <th>STAN</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -58,6 +59,7 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
+                                <td><input name="magazyn" size="5"/></td>
                                 <td><input name="magazyn" size="5"/></td>
                                 <td><input name="magazyn" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
@@ -72,13 +74,9 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>PRODUKT ID</th>
-                            <th>ILOŚĆ</th>
-                            <th>KATEGORIA</th>
-                            <th>MARKA</th>
-                            <th>MODEL</th>
-                            <th>CENA</th>
-                            <th>WAGA</th>
+                            <th>ID ZAMÓWIENIA</th>
+                            <th>ID PRODUKTU</th>
+                            <th>STAN</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -87,13 +85,9 @@
                         for(var i = 0; i< warehouse.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
-                            <td><label> <%=warehouse[i].PRODUKT_ID%> </label></td>
-                            <td><label> <%=warehouse[i].ILOŚĆ%> </label></td>
-                            <td><label> <%=warehouse[i].KATEGORIA%> </label></td>
-                            <td><label> <%=warehouse[i].MARKA%> </label></td>
-                            <td><label> <%=warehouse[i].MODEL%> </label></td>
-                            <td><label> <%=warehouse[i].CENA%> </label></td>
-                            <td><label> <%=warehouse[i].WAGA%> </label></td>
+                            <td><label> <%=warehouse[i].ZAMÓWIENIA_ZAMÓWIENIE_ID%> </label></td>
+                            <td><label> <%=warehouse[i].ZAMÓWIENIA_PRODUKT_ID%> </label></td>
+                            <td><label> <%=warehouse[i].NAZWA_STANU%> </label></td>
                             <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
                         </tr>
 
