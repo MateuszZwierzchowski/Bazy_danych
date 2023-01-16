@@ -135,7 +135,6 @@ router.post('/', function(req, res, next) {
                 PRODUKT_PRODUKT_ID = ${data[key][1]} AND
                 ZAMÓWIENIA_ZAMÓWIENIE_ID = ${data[key][0]}),
               (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][2]}'))`;
-              console.log(sqlString);
             connection.query(sqlString, function(err, rows){
                 if(err){
                   req.flash('message', err.message);
@@ -151,7 +150,6 @@ router.post('/', function(req, res, next) {
               ${data[key][0]}, 
               ${data[key][1]},
               ${data[key][2]})`;
-            console.log(sqlString);
             connection.query(sqlString, function(err, rows){
                 if(err){
                   req.flash('message', err.message);
@@ -159,6 +157,45 @@ router.post('/', function(req, res, next) {
                 }else{   
                   console.log("SUCCESS!"); 
                   res.redirect('/ordersContents');
+                }
+              });
+            break;
+        case 'przewoznik':
+            var sqlString = `INSERT INTO PRZEWOŹNIK(NAZWA_PRZEWOŹNIKA) VALUES(
+              '${data[key]}')`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/carriers');
+                }else{   
+                  console.log("SUCCESS!"); 
+                  res.redirect('/carriers');
+                }
+              });
+            break;
+        case 'stan':
+            var sqlString = `INSERT INTO STANY(NAZWA_STANU) VALUES(
+              '${data[key]}')`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/states');
+                }else{   
+                  console.log("SUCCESS!"); 
+                  res.redirect('/states');
+                }
+              });
+            break;
+        case 'klient':
+            var sqlString = `INSERT INTO KLIENT(IMIĘ,NAZWISKO,LOGIN,HASŁO) VALUES(
+              '${data[key][0]}','${data[key][1]}','${data[key][2]}','${data[key][3]}')`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/clients');
+                }else{   
+                  console.log("SUCCESS!"); 
+                  res.redirect('/clients');
                 }
               });
             break;

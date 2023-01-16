@@ -102,6 +102,67 @@ router.post('/', function(req, res, next){
         }
       });
       break;
+    case 'zawartosc_zamowienia':
+      var sqlString = `UPDATE ZAWARTOŚć_ZAMÓWIEŃ SET 
+      ZAMÓWIENIA_ZAMÓWIENIE_ID = ${data[key][1]["val"]},
+      PRODUKT_PRODUKT_ID = ${data[key][2]["val"]}, 
+      ILOŚĆ = ${data[key][3]["val"]}
+      WHERE ZAWARTOŚĆ_ZAMÓWIEŃ_ID = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/ordersContents');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/ordersContents');  
+        }
+      });
+      break;
+    case 'przewoznik':
+      var sqlString = `UPDATE PRZEWOŹNIK SET 
+      NAZWA_PRZEWOŹNIKA = '${data[key][1]["val"]}'
+      WHERE PRZEWOŹNIK_ID = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/carriers');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/carriers');  
+        }
+      });
+      break;
+    case 'stan':
+      var sqlString = `UPDATE STANY SET 
+      NAZWA_STANU = '${data[key][1]["val"]}'
+      WHERE STAN_ID = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/states');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/states');  
+        }
+      });
+      break;
+    case 'klient':
+      var sqlString = `UPDATE KLIENT SET 
+      IMIĘ = '${data[key][1]["val"]}',
+      NAZWISKO = '${data[key][2]["val"]}',
+      LOGIN = '${data[key][3]["val"]}',
+      HASŁO = '${data[key][4]["val"]}'
+      WHERE KLIENT_ID = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/clients');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/clients');  
+        }
+      });
+      break;
     default:
       req.flash('message', 'WRONG KEY!');
       res.redirect('/');

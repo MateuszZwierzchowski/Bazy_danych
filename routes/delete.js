@@ -81,6 +81,42 @@ router.post('/', function(req, res, next) {
                 }
                 });
             break;
+        case 'przewoznik':
+            var sqlString = `DELETE FROM PRZEWOŹNIK WHERE PRZEWOŹNIK_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/carriers');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/carriers');
+                }
+                });
+            break;
+        case 'stan':
+            var sqlString = `DELETE FROM STANY WHERE STAN_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/states');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/states');
+                }
+                });
+            break;
+        case 'klient':
+            var sqlString = `DELETE FROM KLIENT WHERE KLIENT_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/clients');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/clients');
+                }
+                });
+            break;
         default:
             req.flash('message', 'WRONG DEL KEY!');
             res.redirect('/');
