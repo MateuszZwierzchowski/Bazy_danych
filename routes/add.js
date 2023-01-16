@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
                 {"PRZEKĄTNA_EKRANU": true},
                 {"ROZDZIELCZOŚĆ": false},
                 {"KARTA_GRAFICZNA": false},
-                {"ILOŚĆ PAMIĘCI RAM": true},
+                {"ILOŚĆ_PAMIĘCI_RAM": true},
                 {"KATEGORIE_KATEGORIA_ID": true}
               ];
             
@@ -46,7 +46,7 @@ router.post('/', function(req, res, next) {
                 if (productFeatures[i][Object.keys(productFeatures[i])[0]] == true) sqlString += `${data[key][i]},`;
                 else sqlString += `'${data[key][i]}',`;
             }
-            sqlString = sqlString.substring(0,sqlString.length-1);
+            sqlString += `(SELECT KATEGORIA_ID FROM KATEGORIE WHERE KATEGORIA = '${data[key][productFeatures.length-1]}')`;
             sqlString += `)`;
 
             console.log(sqlString);
