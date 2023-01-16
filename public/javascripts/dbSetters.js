@@ -37,6 +37,41 @@ function getCarriers(res, req, next) {
 }
 
 
+function getClients(res, req, next) {
+    let sql = `SELECT KLIENT_ID, IMIĘ, NAZWISKO, LOGIN, HASŁO FROM KLIENT`;
+
+    connection.query(sql, function(err, rows){
+        if(err){
+            req.flash('error', err); 
+            res.render('clients', {page_title:"error", warehouse: ''});   
+            return;
+        } else {
+            const mess = req.flash('message');
+            if (mess.length == 0) res.render('clients', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('clients', {page_title:"succes", warehouse: rows, message: mess[0]});
+        }
+    });
+}
+
+
+function getStates(res, req, next) {
+    let sql = `SELECT NAZWA_STANU FROM STANY`;
+
+    connection.query(sql, function(err, rows){
+        if(err){
+            req.flash('error', err); 
+            res.render('states', {page_title:"error", warehouse: ''});   
+            return;
+        } else {
+            const mess = req.flash('message');
+            if (mess.length == 0) res.render('states', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('states', {page_title:"succes", warehouse: rows, message: mess[0]});
+        }
+    });
+}
+
+
+
 
 function getReturns(res, req, next) {
     let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, Z.PRODUKT_PRODUKT_ID, S.NAZWA_STANU 
@@ -190,4 +225,4 @@ function getWarehouse(res, req, next) {
     });
 }
 
-module.exports = {getWarehouse, getProducts, getCategories, getOrders, getOrdersContents, getComplaints, getReturns, getCarriers}
+module.exports = {getWarehouse, getProducts, getCategories, getOrders, getOrdersContents, getComplaints, getReturns, getCarriers, getClients, getStates}
