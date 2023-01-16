@@ -129,17 +129,22 @@ router.post('/', function(req, res, next) {
             });
             break;
         case 'zwrot':
-            /*var sqlString = `INSERT INTO ZWROTY(ZAMÓWIENIA_ZAMÓWIENIE_ID, STANY_STAN_ID) VALUES(
-              '${data[key][]}', '${data[key][1]})`;
+            var sqlString = `INSERT INTO ZWROTY(ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, STANY_STAN_ID) VALUES(
+              ${data[key][0]}, 
+              (SELECT PRODUKT_PRODUKT_ID FROM ZAWARTOŚĆ_ZAMÓWIEŃ WHERE 
+                PRODUKT_PRODUKT_ID = ${data[key][1]} AND
+                ZAMÓWIENIA_ZAMÓWIENIE_ID = ${data[key][0]}),
+              (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][2]}'))`;
+              console.log(sqlString);
             connection.query(sqlString, function(err, rows){
                 if(err){
                   req.flash('message', err.message);
-                  res.redirect('/categories');
+                  res.redirect('/returns');
                 }else{   
-                  console.log("SUCCESS: KATEGORIA DODANA!"); 
-                  res.redirect('/categories');
+                  console.log("SUCCESS!"); 
+                  res.redirect('/returns');
                 }
-              });*/
+              });
             break;
         default:
             req.flash('message', 'WRONG ADD KEY!');

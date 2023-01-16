@@ -39,7 +39,7 @@ function getCarriers(res, req, next) {
 
 
 function getReturns(res, req, next) {
-    let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, S.NAZWA_STANU 
+    let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, Z.PRODUKT_PRODUKT_ID, S.NAZWA_STANU 
     FROM ZWROTY Z
     LEFT OUTER JOIN STANY S ON Z.STANY_STAN_ID=S.STAN_ID`;
 
