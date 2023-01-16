@@ -88,17 +88,17 @@ router.post('/', function(req, res, next){
     case 'zwrot':
       var sqlString = `UPDATE ZWROTY SET 
       ZAMÓWIENIA_ZAMÓWIENIE_ID = ${data[key][1]["val"]},
-      STANY_STAN_ID = ${data[key][2]["val"]}, 
-      PRODUKT_PRODUKT_ID = (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][3]["val"]}') 
+      PRODUKT_PRODUKT_ID = ${data[key][2]["val"]}, 
+      STANY_STAN_ID = (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][3]["val"]}') 
       WHERE ZWROTY_ID = ${data[key][0]["val"]}`;
       console.log(sqlString);
       connection.query(sqlString, function(err, rows){
         if(err){;
           req.flash('message', err.message);
-          res.redirect('/orders');
+          res.redirect('/returns');
         }else{   
           console.log("SUCCESS!"); 
-          res.redirect('/orders');  
+          res.redirect('/returns');  
         }
       });
       break;

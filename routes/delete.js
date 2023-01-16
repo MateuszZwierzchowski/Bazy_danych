@@ -57,9 +57,33 @@ router.post('/', function(req, res, next) {
                 }
                 });
             break;
+        case 'zwrot':
+            var sqlString = `DELETE FROM ZWROTY WHERE ZWROTY_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/returns');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/returns');
+                }
+                });
+            break;
+        case 'zawartosc_zamowienia':
+            var sqlString = `DELETE FROM ZAWARTOŚĆ_ZAMÓWIEŃ WHERE ZAWARTOŚĆ_ZAMÓWIEŃ_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/ordersContents');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/ordersContents');
+                }
+                });
+            break;
         default:
             req.flash('message', 'WRONG DEL KEY!');
-            res.redirect('/orders');
+            res.redirect('/');
             break;
     }
 

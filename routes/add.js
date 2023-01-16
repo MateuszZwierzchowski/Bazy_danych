@@ -146,6 +146,22 @@ router.post('/', function(req, res, next) {
                 }
               });
             break;
+        case 'zawartosc_zamowienia':
+            var sqlString = `INSERT INTO ZAWARTOŚĆ_ZAMÓWIEŃ(ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ) VALUES(
+              ${data[key][0]}, 
+              ${data[key][1]},
+              ${data[key][2]})`;
+            console.log(sqlString);
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/ordersContents');
+                }else{   
+                  console.log("SUCCESS!"); 
+                  res.redirect('/ordersContents');
+                }
+              });
+            break;
         default:
             req.flash('message', 'WRONG ADD KEY!');
             res.redirect('/categories');

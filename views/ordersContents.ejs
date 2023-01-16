@@ -74,9 +74,9 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
-                                <td><input name="zawartość zamówienia" size="5"/></td>
-                                <td><input name="zawartość zamówienia" size="5"/></td>
-                                <td><input name="zawartość zamówienia" size="5"/></td>
+                                <td><input name="zawartosc_zamowienia" size="5"/></td>
+                                <td><input name="zawartosc_zamowienia" size="5"/></td>
+                                <td><input name="zawartosc_zamowienia" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
@@ -107,7 +107,7 @@
                                 <button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button>                                
                             </td>  
                             <td>
-                                <button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].PRODUKT_ID %>')">Delete!</button>
+                                <button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].ZAWARTOŚĆ_ZAMÓWIEŃ_ID %>')">Delete!</button>
                             </td>
                         </tr>
 

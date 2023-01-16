@@ -101,7 +101,7 @@ function getReturns(res, req, next) {
 
 
 function getOrdersContents(res, req, next) {
-    let sql = `SELECT ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ FROM ZAWARTOŚĆ_ZAMÓWIEŃ`;
+    let sql = `SELECT ZAWARTOŚĆ_ZAMÓWIEŃ_ID, ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ FROM ZAWARTOŚĆ_ZAMÓWIEŃ`;
 
     connection.query(sql, function(err, rows){
         if(err){
