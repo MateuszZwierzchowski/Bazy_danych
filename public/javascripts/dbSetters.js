@@ -1,42 +1,20 @@
 var connection = require('./database');
 
 
-function setCategory(category) {
-
-    let sql = `INSERT INTO KATEGORIE(KATEGORIA) VALUES(\'${category}\')`;
-
-    connection.query(sql, function(err, results){
-        if (err) throw err;
-        console.log("1 record inserted");
-    });
-
-}
-
-
-function setClient(name, surname, login, password) {
-
-    let sql = `INSERT INTO KATEGORIE(IMIĘ, NAZWISKO, LOGIN, HASŁO) VALUES(\'${name}\',\'${surname}\',\'${login}\',\'${password}\')`;
-
-    connection.query(sql, function(err, results){
-        if (err) throw err;
-        console.log("1 record inserted");
-    });
-
-}
-
-
 function getReturns(res, req, next) {
-    let sql = `SELECT KATEGORIA FROM mydb.KATEGORIE`;
+    let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, S.NAZWA_STANU 
+    FROM ZWROTY Z
+    LEFT OUTER JOIN STANY S ON Z.STANY_STAN_ID=S.STAN_ID`;
 
     connection.query(sql, function(err, rows){
         if(err){
             req.flash('error', err); 
-            res.render('categories', {page_title:"error", warehouse: ''});   
+            res.render('returns', {page_title:"error", warehouse: ''});   
             return;
         } else {
             const mess = req.flash('message');
-            if (mess.length == 0) res.render('categories', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('categories', {page_title:"succes", warehouse: rows, message: mess[0]});
+            if (mess.length == 0) res.render('returns', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('returns', {page_title:"succes", warehouse: rows, message: mess[0]});
         }
     });
 }
@@ -48,12 +26,12 @@ function getComplaints(res, req, next) {
     connection.query(sql, function(err, rows){
         if(err){
             req.flash('error', err); 
-            res.render('categories', {page_title:"error", warehouse: ''});   
+            res.render('complaints', {page_title:"error", warehouse: ''});   
             return;
         } else {
             const mess = req.flash('message');
-            if (mess.length == 0) res.render('categories', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('categories', {page_title:"succes", warehouse: rows, message: mess[0]});
+            if (mess.length == 0) res.render('complaints', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('complaints', {page_title:"succes", warehouse: rows, message: mess[0]});
         }
     });
 }
@@ -65,12 +43,12 @@ function getOrdersContents(res, req, next) {
     connection.query(sql, function(err, rows){
         if(err){
             req.flash('error', err); 
-            res.render('categories', {page_title:"error", warehouse: ''});   
+            res.render('ordersContents', {page_title:"error", warehouse: ''});   
             return;
         } else {
             const mess = req.flash('message');
-            if (mess.length == 0) res.render('categories', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('categories', {page_title:"succes", warehouse: rows, message: mess[0]});
+            if (mess.length == 0) res.render('ordersContents', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('ordersContents', {page_title:"succes", warehouse: rows, message: mess[0]});
         }
     });
 }
