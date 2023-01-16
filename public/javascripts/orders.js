@@ -6,45 +6,57 @@ function editRow(n)
 
         switch(buttonName) {
                 case 'Edit!' :
-                        var label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[1].getElementsByTagName('label')[0];
-                        label.replaceWith(select);
-                        
-                        for (var i=2; i<len; i++) 
+                        var state = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[2].getElementsByTagName('label')[0];
+                        var carrier = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[3].getElementsByTagName('label')[0];
+                
+                        var stateSelect = document.createElement('select');
+                        stateSelect.setAttribute("id", "statSel");
+                        let statesLabels = document.getElementById('states').getElementsByTagName("label");
+                        for (var i=0; i<statesLabels.length; i++) 
                         {
-                                label = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('label')[0];
-                                var input = document.createElement("input");
-                                input.setAttribute('size', '5');
-                                input.value = label.innerText;
-                                label.replaceWith(input);
+                                var option = document.createElement('option');
+                                option.setAttribute("value", statesLabels[i].innerText);
+                                option.textContent = statesLabels[i].innerText;
+                                stateSelect.appendChild(option);
                         }
+                        state.replaceWith(stateSelect);
+                        
+
+                        var carrSelect = document.createElement('select');
+                        carrSelect.setAttribute("id", "carrSel");
+                        let carrLabels = document.getElementById('carriers').getElementsByTagName("label");
+                        for (var i=0; i<statesLabels.length; i++) 
+                        {
+                                var option = document.createElement('option');
+                                option.setAttribute("value", carrLabels[i].innerText);
+                                option.textContent = carrLabels[i].innerText;
+                                carrSelect.appendChild(option);
+                        }
+                        carrier.replaceWith(carrSelect);
 
                         document.getElementById(`edit${n}`).innerText = "Save!";
                         break;
 
                 case 'Save!' : 
                         var jsonString = '{"zamowienie":[';
+                        
+                        var zamID = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
+                        jsonString += `{"val":"${zamID.innerText}"},`;
 
-                        var prodId= document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
-                        jsonString += `{"val":"${prodId.innerText}"},`;
-                        for (var i=1; i<len; i++) 
-                        {
-                                if (i == 1) {
-                                        var select = document.getElementById('catSel');
-                                        var label = document.createElement("label");
-                                        label.setAttribute('size', '5');
-                                        jsonString += `{"val":"${select.selectedOptions[0].textContent}"},`;
-                                        label.innerText = select.selectedOptions[0].textContent;
-                                        select.replaceWith(label);
-                                        
-                                } else {
-                                        var edit = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[i].getElementsByTagName('input')[0];
-                                        var label = document.createElement("label");
-                                        label.setAttribute('size', '5');
-                                        jsonString += `{"val":"${edit.value}"},`;
-                                        label.innerText = edit.value;
-                                        edit.replaceWith(label);
-                                }
-                        }
+                        var stateSelect = document.getElementById('statSel');
+                        var state = document.createElement("label");
+                        state.setAttribute('size', '5');
+                        jsonString += `{"val":"${stateSelect.selectedOptions[0].textContent}"},`;
+                        state.innerText = stateSelect.selectedOptions[0].textContent;
+                        stateSelect.replaceWith(state);
+                        
+                        var carrSelect = document.getElementById('carrSel');
+                        var carrier = document.createElement("label");
+                        carrier.setAttribute('size', '5');
+                        jsonString += `{"val":"${carrSelect.selectedOptions[0].textContent}"},`;
+                        carrier.innerText = carrSelect.selectedOptions[0].textContent;
+                        carrSelect.replaceWith(carrier);
+
                         jsonString = jsonString.slice(0, -1);
                         jsonString += ']}';
 
@@ -67,3 +79,19 @@ function editRow(n)
                         console.log("ERROR: WRONG BUTTON NAME!");
         }
 }
+
+function delRow(n)
+{											
+	let form = document.createElement("form");
+	form.method = "post";
+	form.action = "/delete";
+	document.body.appendChild(form);
+
+	var hiddeninput = document.createElement("input");
+	hiddeninput.setAttribute("type", "hidden");
+	hiddeninput.setAttribute("name", "zamowienie");
+	hiddeninput.setAttribute("value", n);
+	form.appendChild(hiddeninput);
+
+	form.submit();
+} 

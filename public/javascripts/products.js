@@ -11,7 +11,6 @@ function editRow(n)
                         let categoriesLabels = document.getElementById('categories').getElementsByTagName("label");
                         for (var i=0; i<categoriesLabels.length; i++) 
                         {
-                                console.log(i);
                                 var option = document.createElement('option');
                                 option.setAttribute("value", categoriesLabels[i].innerText);
                                 option.textContent = categoriesLabels[i].innerText;

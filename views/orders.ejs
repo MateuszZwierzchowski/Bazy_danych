@@ -14,7 +14,6 @@
                 </div>
             <% }%>
         </div> 
-
         <div class="btn-group-wrapper"> 
             <div class="btn-group">
             <form action="/">
@@ -60,10 +59,26 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
-                                <td><input name="magazyn" size="5"/></td>
-                                <td><input name="magazyn" size="5"/></td>
-                                <td><input name="magazyn" size="5"/></td>
-                                <td><input name="magazyn" size="5"/></td>
+                                <td><input name="zamowienie" size="5"/></td>
+                                <td>
+                                    <select name="zamowienie" siez="5">
+                                            <% if(states.length){
+                                                for(var i = 0; i< states.length; i++) {%>  
+                                                    <option> <%=states[i].NAZWA_STANU%></option>
+                                                <% }
+                                            }%>  
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="zamowienie" siez="5">
+                                            <% if(carriers.length){
+                                                for(var i = 0; i< carriers.length; i++) {%>  
+                                                    <option> <%=carriers[i].NAZWA_PRZEWOŹNIKA%></option>
+                                                <% }
+                                            }%>  
+                                    </select>
+                                </td>
+                                <td><input name="zamowienie" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
@@ -97,6 +112,7 @@
                             <td><label> <%=warehouse[i].IMIĘ%> </label></td>
                             <td><label> <%=warehouse[i].NAZWISKO%> </label></td>
                             <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
+                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].ZAMÓWIENIE_ID %>')">Delete!</button></td> 
                         </tr>
 
                         <% }
@@ -112,5 +128,20 @@
                 </div>
             </div>
         </div>
+        <div id="states">
+            <% if(states.length){
+                for(var i = 0; i< states.length; i++) {%>  
+                    <label><%=states[i].NAZWA_STANU%></label>
+                <% }
+            }%>  
+        </div>
+        <div id="carriers">
+            <% if(carriers.length){
+                for(var i = 0; i< carriers.length; i++) {%>  
+                    <label> <%=carriers[i].NAZWA_PRZEWOŹNIKA%></label>
+                <% }
+            }%>  
+        </div>
+        </td>
     </body>
 </html>

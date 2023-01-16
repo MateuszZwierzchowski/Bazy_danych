@@ -83,6 +83,64 @@ router.post('/', function(req, res, next) {
                 }
               });
             break;
+        case 'zamowienie':
+            let orderFeatures = [
+                {"DATA_ZAMÓWIENIA": false},
+                {"STANY_STAN_ID": true},
+                {"PRZEWOŹNIK_PRZEWoŹNIK_ID": true},
+                {"KLIENT_KLIENT_ID": true}
+              ];
+
+            let fElements = [
+              {false: false},
+              {"STANY": ["STAN_ID", "NAZWA_STANU"]},
+              {"PRZEWOŹNIK": ["PRZEWOŹNIK_ID", "NAZWA_PRZEWOŹNIKA"]},
+              {false: false}
+            ];
+            
+            var sqlString = `INSERT INTO ZAMÓWIENIA(`;
+            for (var i=0; i<orderFeatures.length; i++) 
+            {
+                if (data[key][i] === "") continue;
+                sqlString += `${Object.keys(orderFeatures[i])[0]},`;
+            }
+
+            sqlString = sqlString.substring(0,sqlString.length-1);
+            sqlString += `) VALUES(`;
+            for (var i=0; i<orderFeatures.length; i++) 
+            {
+                if (data[key][i] === "") continue;
+                if (orderFeatures[i][Object.keys(orderFeatures[i])[0]] == true) {
+                  if (fElements[i][Object.keys(fElements[i])[0]] == false) sqlString += `${data[key][i]},`;
+                  else sqlString += `(SELECT ${fElements[i][Object.keys(fElements[i])[0]][0]} FROM ${Object.keys(fElements[i])[0]} WHERE ${fElements[i][Object.keys(fElements[i])[0]][1]} = '${data[key][i]}'),`;
+                }
+                else sqlString += `STR_TO_DATE("${data[key][i]}", "%Y-%m-%d"),`;
+            }
+            sqlString = sqlString.substring(0,sqlString.length-1);
+            sqlString += `)`;
+            connection.query(sqlString, function(err, rows){
+              if(err){
+                req.flash('message', err.message);
+                res.redirect('/orders');
+              }else{   
+                console.log("SUCCESS!"); 
+                res.redirect('/orders');
+              }
+            });
+            break;
+        case 'zwrot':
+            /*var sqlString = `INSERT INTO ZWROTY(ZAMÓWIENIA_ZAMÓWIENIE_ID, STANY_STAN_ID) VALUES(
+              '${data[key][]}', '${data[key][1]})`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/categories');
+                }else{   
+                  console.log("SUCCESS: KATEGORIA DODANA!"); 
+                  res.redirect('/categories');
+                }
+              });*/
+            break;
         default:
             req.flash('message', 'WRONG ADD KEY!');
             res.redirect('/categories');

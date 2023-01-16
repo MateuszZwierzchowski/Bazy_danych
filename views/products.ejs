@@ -14,13 +14,6 @@
                 </div>
             <% }%>
         </div> 
-        <div id="categories">
-                <% if(categories.length){
-                    for(var i = 0; i< categories.length; i++) {%>  
-                        <label size="0"> <%=categories[i].KATEGORIA%></label>
-                    <% }
-                }%>  
-        </div>
         <div class="btn-group-wrapper"> 
             <div class="btn-group">
             <form action="/">
@@ -153,5 +146,12 @@
                 </div>
             </div>
         </div>
+    <div id="categories">
+        <% if(categories.length){
+            for(var i = 0; i< categories.length; i++) {%>  
+                <label size="0"> <%=categories[i].KATEGORIA%></label>
+            <% }
+        }%>  
+    </div>
     </body>
 </html>

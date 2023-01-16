@@ -1,20 +1,20 @@
 var connection = require('./database');
 
 
-function getReturns(res, req, next) {
-    let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, S.NAZWA_STANU 
-    FROM ZWROTY Z
-    LEFT OUTER JOIN STANY S ON Z.STANY_STAN_ID=S.STAN_ID`;
-
+function getComplaints(res, req, next) {
+    let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
+    FROM reklamacje R
+    LEFT OUTER JOIN ZAMÓWIENIA Z ON Z.ZAMÓWIENIE_ID=R.ZAMÓWIENIA_ZAMÓWIENIE_ID
+    LEFT OUTER JOIN STANY S ON R.STANY_STAN_ID=S.STAN_ID`;
     connection.query(sql, function(err, rows){
         if(err){
             req.flash('error', err); 
-            res.render('returns', {page_title:"error", warehouse: ''});   
+            res.render('complaints', {page_title:"error", warehouse: ''});   
             return;
         } else {
             const mess = req.flash('message');
-            if (mess.length == 0) res.render('returns', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('returns', {page_title:"succes", warehouse: rows, message: mess[0]});
+            if (mess.length == 0) res.render('complaints', {page_title:"succes", warehouse: rows, message: ""});
+            else res.render('complaints', {page_title:"succes", warehouse: rows, message: mess[0]});
         }
     });
 }
@@ -38,22 +38,31 @@ function getCarriers(res, req, next) {
 
 
 
-function getComplaints(res, req, next) {
-    let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
-    FROM reklamacje R
-    LEFT OUTER JOIN ZAMÓWIENIA Z ON Z.ZAMÓWIENIE_ID=R.ZAMÓWIENIA_ZAMÓWIENIE_ID
-    LEFT OUTER JOIN STANY S ON R.STANY_STAN_ID=S.STAN_ID`;
+function getReturns(res, req, next) {
+    let sql = `SELECT Z.ZAMÓWIENIA_ZAMÓWIENIE_ID, S.NAZWA_STANU 
+    FROM ZWROTY Z
+    LEFT OUTER JOIN STANY S ON Z.STANY_STAN_ID=S.STAN_ID`;
 
-    connection.query(sql, function(err, rows){
-        if(err){
-            req.flash('error', err); 
-            res.render('complaints', {page_title:"error", warehouse: ''});   
-            return;
-        } else {
-            const mess = req.flash('message');
-            if (mess.length == 0) res.render('complaints', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('complaints', {page_title:"succes", warehouse: rows, message: mess[0]});
+    connection.query(sql, function(err1, rows1){
+        function getStates(res, req, rows1) {
+            let sql2 = `SELECT NAZWA_STANU FROM STANY`;
+            connection.query(sql2, function (err2, rows2) {
+                if (err2) {
+                    res.render('returns', { page_title: "error2", warehouse: '' });
+                }
+                else {
+                    const mess = req.flash('message');
+                    if (mess.length == 0) res.render('returns', { page_title: "succes12", warehouse: rows1, message: "", states: rows2 });
+                    else res.render('returns', { page_title: "succes12", warehouse: rows1, message: mess[0], states: rows2 });
+                }
+            });
         }
+        if(err1){
+            req.flash('error', err1); 
+            res.render('complaints', {page_title:"error1", warehouse: ''});   
+            return;
+        } 
+        getStates(res, req, rows1);
     });
 }
 
@@ -95,7 +104,7 @@ function getOrders(res, req, next) {
                         else {
                             const mess = req.flash('message');
                             if (mess.length == 0) res.render('orders', { page_title: "succes12", warehouse: rows1, message: "", carriers: rows2, states: rows3 });
-                            else res.render('orders', { page_title: "succes12", warehouse: mpRows, message: mess[0], carriers: rows2, states: rows3 });
+                            else res.render('orders', { page_title: "succes12", warehouse: rows1, message: mess[0], carriers: rows2, states: rows3 });
                         }
                     });
                 }
