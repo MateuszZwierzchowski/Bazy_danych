@@ -85,6 +85,22 @@ router.post('/', function(req, res, next){
         }
       });
       break; 
+    case 'zwrot':
+      var sqlString = `UPDATE ZWROTY SET 
+      STANY_STAN_ID = (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][1]["val"]}'),
+      PRZEWOŹNIK_PRZEWOŹNIK_ID = (SELECT PRZEWOŹNIK_ID FROM PRZEWOŹNIK WHERE NAZWA_PRZEWOŹNIKA = '${data[key][2]["val"]}') 
+      WHERE ZAMÓWIENIE_ID = ${data[key][0]["val"]}`;
+      console.log(sqlString);
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/orders');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/orders');  
+        }
+      });
+      break;
     default:
       req.flash('message', 'WRONG KEY!');
       res.redirect('/');
