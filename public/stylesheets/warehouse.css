@@ -33,6 +33,7 @@ div.tab-body {
 }
 
 div.tab-body2 {
+	overflow:auto;
 	padding: 0em;
 	clear: both;
 	background-color: #FFFFFF;
