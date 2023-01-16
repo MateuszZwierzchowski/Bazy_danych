@@ -19,9 +19,9 @@ router.post('/', function(req, res, next) {
                 {"PROCESOR": false},
                 {"MOC": true},
                 {"PRZEKĄTNA_EKRANU": true},
-                //{"ROZDZIELCZOŚĆ": false}
-                //{"KARTA_GRAFICZNA": false},
-                //{"ILOŚĆ PAMIĘCI RAM": true},
+                {"ROZDZIELCZOŚĆ": false},
+                {"KARTA_GRAFICZNA": false},
+                {"ILOŚĆ PAMIĘCI RAM": true},
                 {"KATEGORIE_KATEGORIA_ID": true}
               ];
             

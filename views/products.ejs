@@ -64,7 +64,8 @@
                             <th>MOC</th>
                             <th>PRZEKĄTNA EKRANU</th>
                             <th>ROZDZIELCZOŚĆ</th>
-                            <th>KATEGORIA</th>
+                            <th>KARTA_GRAFICZNA</th>
+                            <th>ILOŚĆ_PAMIĘCI_RAM</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -72,6 +73,8 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
@@ -94,7 +97,6 @@
                         <tr>
                             <th>#</th>
                             <th>PRODUKT ID</th>
-                            <th>KATEGORIA</th>
                             <th>MARKA</th>
                             <th>MODEL</th>
                             <th>CENA</th>
@@ -103,6 +105,9 @@
                             <th>MOC</th>
                             <th>PRZEKĄTNA EKRANU</th>
                             <th>ROZDZIELCZOŚĆ</th>
+                            <th>KARTA_GRAFICZNA</th>
+                            <th>ILOŚĆ_PAMIĘCI_RAM</th>
+                            <th>KATEGORIA</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -121,6 +126,8 @@
                             <td><label> <%=warehouse[i].MOC%> </label></td>
                             <td><label> <%=warehouse[i].PRZEKĄTNA_EKRANU%> </label></td>
                             <td><label> <%=warehouse[i].ROZDZIELCZOŚĆ%> </label></td>
+                            <td><label> <%=warehouse[i].KARTA_GRAFICZNA%> </label></td>
+                            <td><label> <%=warehouse[i].ILOŚĆ_PAMIĘCI_RAM%> </label></td>
                             <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
                         </tr>
 
