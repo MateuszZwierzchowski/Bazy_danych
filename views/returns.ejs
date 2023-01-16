@@ -114,7 +114,7 @@
                             <td><label> <%=warehouse[i].ZAMÓWIENIA_ZAMÓWIENIE_ID%> </label></td>
                             <td><label> <%=warehouse[i].PRODUKT_PRODUKT_ID%> </label></td>
                             <td><label> <%=warehouse[i].NAZWA_STANU%> </label></td>
-                            <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
+                            <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
                             <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].ZWROTY_ID %>')">Delete!</button></td>  
                         </tr>
                         </tr>
