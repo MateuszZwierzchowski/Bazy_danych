@@ -21,7 +21,7 @@ function getComplaints(res, req, next) {
 
 
 function getCarriers(res, req, next) {
-    let sql = `SELECT NAZWA_PRZEWOŹNIKA FROM PRZEWOŹNIK`;
+    let sql = `SELECT PRZEWOŹNIK_ID, NAZWA_PRZEWOŹNIKA FROM PRZEWOŹNIK`;
 
     connection.query(sql, function(err, rows){
         if(err){
