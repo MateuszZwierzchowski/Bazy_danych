@@ -65,7 +65,7 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th>Kategoria</th>
+                            <th>Przewoźnik</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -73,7 +73,7 @@
                         <tr>
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
-                                <td><input name="kategoria" size="5"/></td>
+                                <td><input name="przewoźnik" size="5"/></td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
@@ -87,20 +87,20 @@
                         <tr>
                             <th>#</th>
                             <th>Przewoźnik ID</th>
-                            <th>Przewoźnika</th>
+                            <th>Przewoźnik</th>
                             <th></th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <% if(warehouse.length){
-                        for(var i = 0; i< warehouse.length; i++) {%>  
+                        <% if(carrier.length){
+                        for(var i = 0; i< carrier.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
-                            <td><label> <%=warehouse[i].PRZEWOŹNIK_ID%> </label></td>
-                            <td><label> <%=warehouse[i].NAZWA_PRZEWOŹNIKA%> </label></td>
+                            <td><label> <%=carrier[i].PRZEWOŹNIK_ID%> </label></td>
+                            <td><label> <%=carrier[i].NAZWA_PRZEWOŹNIKA%> </label></td>
                             <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
-                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].PRZEWOŹNIK_ID %>')">Delete!</button></td>  
+                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= carrier[i].PRZEWOŹNIK_ID %>')">Delete!</button></td>  
                         </tr>
                         </tr>
 
