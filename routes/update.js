@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
- 
 
 router.post('/', function(req, res, next){
   data = JSON.parse(JSON.stringify(req.body))['json'];
   data = JSON.parse(data);
   key = Object.keys(data)[0];
+
+  console.log(data);
 
   switch(key)
   {
@@ -53,6 +54,19 @@ router.post('/', function(req, res, next){
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!"); 
           res.redirect('/products');
+        }
+      });
+      break;
+    case 'kategorie':
+      var sqlString = `UPDATE KATEGORIE SET KATEGORIA = '${data[key][1]["val"]}' WHERE KATEGORIA_ID = ${data[key][0]["val"]}`;
+      console.log(sqlString);
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/categories');
+        }else{   
+          console.log("SUCCESS: KATEGORIA UPDATED!"); 
+          res.redirect('/categories');  
         }
       });
       break; 

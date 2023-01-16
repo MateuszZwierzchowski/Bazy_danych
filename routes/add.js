@@ -71,7 +71,21 @@ router.post('/', function(req, res, next) {
                 }
               });
             break;
+        case 'kategoria':
+            var sqlString = `INSERT INTO KATEGORIE(KATEGORIA) VALUES('${data[key]}')`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                  req.flash('message', err.message);
+                  res.redirect('/categories');
+                }else{   
+                  console.log("SUCCESS: KATEGORIA DODANA!"); 
+                  res.redirect('/categories');
+                }
+              });
+            break;
         default:
+            req.flash('message', 'WRONG ADD KEY!');
+            res.redirect('/categories');
             break;
     }
 
