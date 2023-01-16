@@ -7,7 +7,6 @@ router.post('/', function(req, res, next){
   data = JSON.parse(JSON.stringify(req.body))['json'];
   data = JSON.parse(data);
   key = Object.keys(data)[0];
-  console.log(data);
 
   switch(key)
   {
@@ -23,8 +22,43 @@ router.post('/', function(req, res, next){
         }
       });
       break;
+    case 'produkt':
+      var productFeatures = [
+          {"MARKA": false},
+          {"MODEL": false},
+          {"CENA": true},
+          {"WAGA": true},
+          {"PROCESOR": false},
+          {"MOC": true},
+          {"PRZEKĄTNA_EKRANU": true},
+          {"ROZDZIELCZOŚĆ": false},
+          {"KARTA_GRAFICZNA": false},
+          {"ILOŚĆ_PAMIĘCI_RAM": true},
+        ];
+      
+      var sqlString = `UPDATE PRODUKT SET `;
+      for (var i=0; i<productFeatures.length; i++) 
+      {
+        if (data[key][i+2]['val'] === "") continue;
+        if (productFeatures[i][Object.keys(productFeatures[i])[0]] == true) sqlString += `${Object.keys(productFeatures[i])[0]} = ${data[key][i+2]['val']},`;
+        else sqlString += `${Object.keys(productFeatures[i])[0]} = '${data[key][i+2]['val']}',`;
+      }
+      sqlString += `KATEGORIE_KATEGORIA_ID = (SELECT KATEGORIA_ID FROM KATEGORIE WHERE KATEGORIA = '${data[key][1]['val']}') `;
+      sqlString += ` WHERE PRODUKT_ID = ${data[key][0]['val']}`
+
+      connection.query(sqlString, function(err, rows){
+        if(err){
+          req.flash('message', err.message);
+          res.redirect('/products');
+        }else{   
+          console.log("SUCCESS: MAGAZYN UPDATED!"); 
+          res.redirect('/products');
+        }
+      });
+      break; 
     default:
-      console.log("ERROR: wrong key!");
+      req.flash('message', 'WRONG KEY!');
+      res.redirect('/products');
   }
 });
 

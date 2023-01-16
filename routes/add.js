@@ -49,8 +49,6 @@ router.post('/', function(req, res, next) {
             sqlString += `(SELECT KATEGORIA_ID FROM KATEGORIE WHERE KATEGORIA = '${data[key][productFeatures.length-1]}')`;
             sqlString += `)`;
 
-            console.log(sqlString);
-
             connection.query(sqlString, function(err, rows){
               if(err){
                 req.flash('message', err.message);
@@ -60,7 +58,6 @@ router.post('/', function(req, res, next) {
                 res.redirect('/products');
               }
             });
-
             break; 
         case 'magazyn':
             var sqlString = `INSERT INTO MAGAZYN(ILOŚĆ, PRODUKT_PRODUKT_ID) VALUES(${data[key][1]}, ${data[key][0]})`;

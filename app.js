@@ -37,6 +37,7 @@ var returnsExpressRouter = require('./routes/returnsExpress.js');
 var complaintsExpressRouter = require('./routes/complaintsExpress.js');
 var updateRouter = require('./routes/update.js');
 var addRouter = require('./routes/add.js');
+var delRouter = require('./routes/delete.js');
 
 app.use('/', warehouseExpressRouter);
 app.use('/products', productsExpressRouter);
@@ -46,6 +47,7 @@ app.use('/returns', returnsExpressRouter);
 app.use('/complaints', complaintsExpressRouter);
 app.use('/update', updateRouter);
 app.use('/add', addRouter);
+app.use('/delete', delRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

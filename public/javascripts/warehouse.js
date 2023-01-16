@@ -1,6 +1,6 @@
 function editRow(n)
 {	
-	var buttonName = document.getElementById(n).innerText;
+	var buttonName = document.getElementById(`edit${n}`).innerText;
 	n = parseInt(n);
 	var len = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].childElementCount-2;
 
@@ -12,7 +12,7 @@ function editRow(n)
 			input.value = label.innerText;
 			label.replaceWith(input);
 
-			document.getElementById(n).innerText = "Save!";
+			document.getElementById(`edit${n}`).innerText = "Save!";
 			break;
 
 		case 'Save!' : 
@@ -44,9 +44,25 @@ function editRow(n)
 
 			form.submit();
 
-			document.getElementById(n).innerText = "Edit!";
+			document.getElementById(`edit${n}`).innerText = "Edit!";
 			break;
 		default:
 			console.log("ERROR: WRONG BUTTON NAME!");
 	}
 }
+
+function delRow(n)
+{											
+	let form = document.createElement("form");
+	form.method = "post";
+	form.action = "/delete";
+	document.body.appendChild(form);
+
+	var hiddeninput = document.createElement("input");
+	hiddeninput.setAttribute("type", "hidden");
+	hiddeninput.setAttribute("name", "magazyn");
+	hiddeninput.setAttribute("value", n);
+	form.appendChild(hiddeninput);
+
+	form.submit();
+} 
