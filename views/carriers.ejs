@@ -86,8 +86,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Kategoria ID</th>
-                            <th>Kategoria</th>
+                            <th>Przewoźnik ID</th>
+                            <th>Przewoźnika</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -97,10 +97,10 @@
                         for(var i = 0; i< warehouse.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
-                            <td><label> <%=warehouse[i].KATEGORIA_ID%> </label></td>
-                            <td><label> <%=warehouse[i].KATEGORIA%> </label></td>
+                            <td><label> <%=warehouse[i].PRZEWOŹNIK_ID%> </label></td>
+                            <td><label> <%=warehouse[i].NAZWA_PRZEWOŹNIKA%> </label></td>
                             <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
-                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].KATEGORIA_ID %>')">Delete!</button></td>  
+                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].PRZEWOŹNIK_ID %>')">Delete!</button></td>  
                         </tr>
                         </tr>
 
