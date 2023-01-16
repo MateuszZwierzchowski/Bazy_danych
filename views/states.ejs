@@ -44,6 +44,18 @@
             <form action="/complaints">
                 <input type="submit" value="Reklamacje">
             </form>
+
+            <form action="/carriers">
+                <input type="submit" value="Przewoźnicy">
+            </form>
+                
+            <form action="/states">
+                <input type="submit" value="Stany">
+            </form>
+                
+            <form action="/clients">
+                <input type="submit" value="Klienci">
+            </form>
         </div>
 
         <div class="tab-wrapper"> 
@@ -74,6 +86,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>ID Stanu</th>
                             <th>Stan</th>
                             <th></th>
                         </tr>
@@ -83,6 +96,7 @@
                         for(var i = 0; i< warehouse.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
+                            <td><label> <%=warehouse[i].STAN_ID%> </label></td>
                             <td><label> <%=warehouse[i].NAZWA_STANU%> </label></td>
                             <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
                             <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].STAN_ID %>')">Delete!</button></td>  

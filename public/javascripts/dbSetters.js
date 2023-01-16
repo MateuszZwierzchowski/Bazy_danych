@@ -55,7 +55,7 @@ function getClients(res, req, next) {
 
 
 function getStates(res, req, next) {
-    let sql = `SELECT NAZWA_STANU FROM STANY`;
+    let sql = `SELECT STAN_ID, NAZWA_STANU FROM STANY`;
 
     connection.query(sql, function(err, rows){
         if(err){
