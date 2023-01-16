@@ -78,7 +78,7 @@ function getOrders(res, req, next) {
 
 
 function getCategories(res, req, next) {
-    let sql = `SELECT KATEGORIA FROM mydb.KATEGORIE`;
+    let sql = `SELECT KATEGORIA_ID, KATEGORIA FROM mydb.KATEGORIE`;
 
     connection.query(sql, function(err, rows){
         if(err){
