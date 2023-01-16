@@ -98,6 +98,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>ID ZWROTU</th>
                             <th>ID ZAMÓWIENIA</th>
                             <th>ID PRODUKTU</th>
                             <th>STAN</th>
@@ -109,6 +110,7 @@
                         for(var i = 0; i< warehouse.length; i++) {%>  
                         <tr>
                             <th scope="row"><%= (i+1) %></th>
+                            <td><label> <%=warehouse[i].ZWROTY_ID%> </label></td>
                             <td><label> <%=warehouse[i].ZAMÓWIENIA_ZAMÓWIENIE_ID%> </label></td>
                             <td><label> <%=warehouse[i].PRODUKT_PRODUKT_ID%> </label></td>
                             <td><label> <%=warehouse[i].NAZWA_STANU%> </label></td>
