@@ -14,14 +14,6 @@
                 </div>
             <% }%>
         </div> 
-        <div id="categories">
-            <% if(categories.length){
-                for(var i = 0; i< categories.length; i++) {%>  
-                    <label type="hidden"> <%=categories[i].KATEGORIA%></label>
-                <% }
-            }%>  
-        </div>
-
         <div class="btn-group-wrapper"> 
             <div class="btn-group">
             <form action="/">
@@ -66,6 +58,7 @@
                             <th>ROZDZIELCZOŚĆ</th>
                             <th>KARTA_GRAFICZNA</th>
                             <th>ILOŚĆ_PAMIĘCI_RAM</th>
+                            <th>KATEGORIA</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -83,7 +76,15 @@
                                 <td><input name="produkt" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
-                                <td><input name="produkt" size="5"/></td>
+                                <td>
+                                    <select name="produkt" siez="5">
+                                            <% if(categories.length){
+                                                for(var i = 0; i< categories.length; i++) {%>  
+                                                    <option> <%=categories[i].KATEGORIA%></label>
+                                                <% }
+                                            }%>  
+                                    </select>
+                                </td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 

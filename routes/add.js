@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
             }
             sqlString = sqlString.substring(0,sqlString.length-1);
             sqlString += `) VALUES(`;
-            for (var i=0; i<productFeatures.length; i++) 
+            for (var i=0; i<productFeatures.length-1; i++) 
             {
                 if (data[key][i] === "") continue;
                 if (productFeatures[i][Object.keys(productFeatures[i])[0]] == true) sqlString += `${data[key][i]},`;
