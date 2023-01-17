@@ -163,6 +163,21 @@ router.post('/', function(req, res, next){
         }
       });
       break;
+    case 'reklamacja':
+      var sqlString = `UPDATE REKLAMACJE SET 
+      ZAMÓWIENIA_ZAMÓWIENIE_ID = ${data[key][1]["val"]},
+      STANY_STAN_ID = (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][2]['val']}')
+      WHERE REKLAMACJE_ID = ${data[key][0]["val"]}`;
+      connection.query(sqlString, function(err, rows){
+        if(err){;
+          req.flash('message', err.message);
+          res.redirect('/complaints');
+        }else{   
+          console.log("SUCCESS!"); 
+          res.redirect('/complaints');  
+        }
+      });
+      break;
     default:
       req.flash('message', 'WRONG KEY!');
       res.redirect('/');

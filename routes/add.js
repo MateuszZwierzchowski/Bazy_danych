@@ -199,6 +199,20 @@ router.post('/', function(req, res, next) {
                 }
               });
             break;
+        case 'reklamacja':
+          var sqlString = `INSERT INTO REKLAMACJE(ZAMÓWIENIA_ZAMÓWIENIE_ID,STANY_STAN_ID) VALUES(
+            ${data[key][0]},
+            (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][1]}'))`;
+          connection.query(sqlString, function(err, rows){
+              if(err){
+                req.flash('message', err.message);
+                res.redirect('/complaints');
+              }else{   
+                console.log("SUCCESS!"); 
+                res.redirect('/complaints');
+              }
+            });
+          break;
         default:
             req.flash('message', 'WRONG ADD KEY!');
             res.redirect('/categories');

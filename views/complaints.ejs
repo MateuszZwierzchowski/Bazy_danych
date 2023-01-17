@@ -75,7 +75,15 @@
                             <form action='/add' method="post">
                                 <td><label type="hidden" size="5"/></td>
                                 <td><input name="reklamacja" size="5"/></td>
-                                <td><input name="reklamacja" size="5"/></td>
+                                <td>
+                                    <select name="reklamacja" siez="5">
+                                            <% if(states.length){
+                                                for(var i = 0; i< states.length; i++) {%>  
+                                                    <option> <%=states[i].NAZWA_STANU%></option>
+                                                <% }
+                                            }%>  
+                                    </select>
+                                </td>
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
@@ -102,7 +110,8 @@
                             <td><label> <%=warehouse[i].Reklamacje_ID%> </label></td>
                             <td><label> <%=warehouse[i].Zamówienia_Zamówienie_ID%> </label></td>
                             <td><label> <%=warehouse[i].NAZWA_STANU%> </label></td>
-                            <td><button type="button" id ='<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
+                            <td><button type="button" id ='edit<%= i %>' onclick="editRow('<%= i %>')">Edit!</button></td>  
+                            <td><button type="button" id ='del<%= i %>' onclick="delRow('<%= warehouse[i].Reklamacje_ID %>')">Delete!</button></td>
                         </tr>
 
                         <% }
@@ -117,6 +126,13 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div id="states">
+            <% if(states.length){
+                for(var i = 0; i< states.length; i++) {%>  
+                    <label><%=states[i].NAZWA_STANU%></label>
+                <% }
+            }%>  
         </div>
     </body>
 </html>

@@ -117,6 +117,18 @@ router.post('/', function(req, res, next) {
                 }
                 });
             break;
+        case 'reklamacja':
+            var sqlString = `DELETE FROM REKLAMACJE WHERE REKLAMACJE_ID = ${data[key]}`;
+            connection.query(sqlString, function(err, rows){
+                if(err){
+                    req.flash('message', err.message);
+                    res.redirect('/complaints');
+                }else{   
+                    console.log("SUCCESS"); 
+                    res.redirect('/complaints');
+                }
+                });
+            break;
         default:
             req.flash('message', 'WRONG DEL KEY!');
             res.redirect('/');

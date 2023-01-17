@@ -6,8 +6,7 @@ function editRow(n)
         switch(buttonName) {
                 case 'Edit!' :
                         var ordId = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[1].getElementsByTagName('label')[0];
-                        var prodId = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[2].getElementsByTagName('label')[0];
-                        var state = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[3].getElementsByTagName('label')[0];
+                        var state = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[2].getElementsByTagName('label')[0];
                         
                         var stateSelect = document.createElement('select');
                         stateSelect.setAttribute("id", "statSel");
@@ -25,19 +24,14 @@ function editRow(n)
                         ordIdInp.setAttribute('size', '5');
                         ordIdInp.value = ordId.innerText;
                         ordId.replaceWith(ordIdInp);
-
-                        var prodIdInp = document.createElement("input");
-                        prodIdInp.setAttribute('size', '5');
-                        prodIdInp.value = prodId.innerText;
-                        prodId.replaceWith(prodIdInp);
                         
                         document.getElementById(`edit${n}`).innerText = "Save!";
                         break;
                 case 'Save!' : 
-                        var jsonString = '{"zwrot":[';
+                        var jsonString = '{"reklamacja":[';
 
-                        var zwrId = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
-                        jsonString += `{"val":"${zwrId.innerText}"},`;
+                        var comId = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[0].getElementsByTagName('label')[0];
+                        jsonString += `{"val":"${comId.innerText}"},`;
 
                         var ordIdInp = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[1].getElementsByTagName('input')[0];
                         var ordId = document.createElement("label");
@@ -45,13 +39,6 @@ function editRow(n)
                         jsonString += `{"val":"${ordIdInp.value}"},`;
                         ordId.innerText = ordIdInp.value;
                         ordIdInp.replaceWith(ordId);
-                        
-                        var prodIdInp = document.getElementById('tab1').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[n].getElementsByTagName('td')[2].getElementsByTagName('input')[0];
-                        var prodId = document.createElement("label");
-                        prodId.setAttribute('size', '5');
-                        jsonString += `{"val":"${prodIdInp.value}"},`;
-                        prodId.innerText = prodIdInp.value;
-                        prodIdInp.replaceWith(prodId);
 
                         var stateSelect = document.getElementById('statSel');
                         var state = document.createElement("label");
@@ -92,7 +79,7 @@ function delRow(n)
 
 	var hiddeninput = document.createElement("input");
 	hiddeninput.setAttribute("type", "hidden");
-	hiddeninput.setAttribute("name", "zwrot");
+	hiddeninput.setAttribute("name", "reklamacja");
 	hiddeninput.setAttribute("value", n);
 	form.appendChild(hiddeninput);
 

@@ -1,24 +1,33 @@
 var connection = require('./database');
 
-
 function getComplaints(res, req, next) {
     let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
     FROM reklamacje R
     LEFT OUTER JOIN ZAMÓWIENIA Z ON Z.ZAMÓWIENIE_ID=R.ZAMÓWIENIA_ZAMÓWIENIE_ID
     LEFT OUTER JOIN STANY S ON R.STANY_STAN_ID=S.STAN_ID`;
-    connection.query(sql, function(err, rows){
-        if(err){
-            req.flash('error', err); 
-            res.render('complaints', {page_title:"error", warehouse: ''});   
-            return;
-        } else {
-            const mess = req.flash('message');
-            if (mess.length == 0) res.render('complaints', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('complaints', {page_title:"succes", warehouse: rows, message: mess[0]});
+
+    connection.query(sql, function(err1, rows1){
+        function getStates(res, req, rows1) {
+            let sql2 = `SELECT NAZWA_STANU FROM STANY`;
+            connection.query(sql2, function (err2, rows2) {
+                if (err2) {
+                    res.render('complaints', { page_title: "error2", warehouse: '' });
+                }
+                else {
+                    const mess = req.flash('message');
+                    if (mess.length == 0) res.render('complaints', { page_title: "succes12", warehouse: rows1, message: "", states: rows2 });
+                    else res.render('complaints', { page_title: "succes12", warehouse: rows1, message: mess[0], states: rows2 });
+                }
+            });
         }
+        if(err1){
+            req.flash('error', err1); 
+            res.render('complaints', {page_title:"error1", warehouse: ''});   
+            return;
+        } 
+        getStates(res, req, rows1);
     });
 }
-
 
 function getCarriers(res, req, next) {
     let sql = `SELECT PRZEWOŹNIK_ID, NAZWA_PRZEWOŹNIKA FROM PRZEWOŹNIK`;
