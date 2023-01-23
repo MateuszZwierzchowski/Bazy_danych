@@ -110,7 +110,11 @@ function getReturns(res, req, next) {
 
 
 function getOrdersContents(res, req, next) {
-    let sql = `SELECT ZAWARTOŚĆ_ZAMÓWIEŃ_ID, ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ FROM ZAWARTOŚĆ_ZAMÓWIEŃ`;
+    var sql;
+    let ord = req.flash('order');
+    if (ord.length == 0) sql = `SELECT ZAWARTOŚĆ_ZAMÓWIEŃ_ID, ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ FROM ZAWARTOŚĆ_ZAMÓWIEŃ`;
+    else sql = `SELECT ZAWARTOŚĆ_ZAMÓWIEŃ_ID, ZAMÓWIENIA_ZAMÓWIENIE_ID, PRODUKT_PRODUKT_ID, ILOŚĆ FROM ZAWARTOŚĆ_ZAMÓWIEŃ ${ord[0]}`;
+
 
     connection.query(sql, function(err, rows){
         if(err){
@@ -144,9 +148,13 @@ function getOrders(res, req, next) {
                             res.render('orders', { page_title: "error3", warehouse: '' });
                         }
                         else {
-                            const mess = req.flash('message');
-                            if (mess.length == 0) res.render('orders', { page_title: "succes12", warehouse: rows1, message: "", carriers: rows2, states: rows3 });
-                            else res.render('orders', { page_title: "succes12", warehouse: rows1, message: mess[0], carriers: rows2, states: rows3 });
+                            var mess = req.flash('message');
+                            if (mess.length == 0) mess = "";
+                            else mess = mess[0];
+                            var summ = req.flash('summary');
+                            if (summ.length == 0) summ = "";
+                            else summ = summ[0];
+                            res.render('orders', { page_title: "succes12", warehouse: rows1, message: mess, carriers: rows2, states: rows3, summary: summ });
                         }
                     });
                 }

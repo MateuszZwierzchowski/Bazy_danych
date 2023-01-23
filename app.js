@@ -42,6 +42,8 @@ var statesExpressRouter = require('./routes/statesExpress.js');
 var updateRouter = require('./routes/update.js');
 var addRouter = require('./routes/add.js');
 var delRouter = require('./routes/delete.js');
+var sortRouter = require('./routes/sort.js');
+var summaryRouter = require('./routes/summary.js');
 
 app.use('/', warehouseExpressRouter);
 app.use('/products', productsExpressRouter);
@@ -56,6 +58,8 @@ app.use('/states', statesExpressRouter);
 app.use('/update', updateRouter);
 app.use('/add', addRouter);
 app.use('/delete', delRouter);
+app.use('/sort', sortRouter);
+app.use('/summary', summaryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

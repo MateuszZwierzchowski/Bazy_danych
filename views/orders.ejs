@@ -98,6 +98,22 @@
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
+                        <tr>
+                            <form action="/summary" method="post">
+                                <td><label>Zysk z zamówień danego dnia: </label></td>
+                                <td><input name="raport" size="5"/></td>
+                                <td><input type="submit" value="Get!"></td> 
+                            </form>
+                            <td>
+                                <div>
+                                    <% if(summary.length) { %>
+                                        <label>
+                                            <%= summary[0].WARTOŚĆ %>
+                                        </label>
+                                    <% }%>
+                                </div> 
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

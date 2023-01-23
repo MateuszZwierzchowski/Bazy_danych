@@ -50,7 +50,7 @@ router.post('/', function(req, res, next) {
             connection.query(sqlString, function(err, rows){
                 if(err){
                     req.flash('message', err.message);
-                    res.redirect('/zamowienia');
+                    res.redirect('/orders');
                 }else{   
                     console.log("SUCCESS"); 
                     res.redirect('/orders');
