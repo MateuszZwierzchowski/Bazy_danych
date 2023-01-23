@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
+let getError = require('../public/javascripts/errorHandler.js')
 
 router.post('/', function(req, res, next){
   data = JSON.parse(JSON.stringify(req.body))['json'];
@@ -15,7 +16,7 @@ router.post('/', function(req, res, next){
       var sqlString = `UPDATE MAGAZYN SET ILOŚĆ = ${data[key][1]["val"]} WHERE PRODUKT_PRODUKT_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/');
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!"); 
@@ -49,7 +50,7 @@ router.post('/', function(req, res, next){
 
       connection.query(sqlString, function(err, rows){
         if(err){
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/products');
         }else{   
           console.log("SUCCESS: MAGAZYN UPDATED!"); 
@@ -61,7 +62,7 @@ router.post('/', function(req, res, next){
       var sqlString = `UPDATE KATEGORIE SET KATEGORIA = '${data[key][1]["val"]}' WHERE KATEGORIA_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/categories');
         }else{   
           console.log("SUCCESS: KATEGORIA UPDATED!"); 
@@ -77,7 +78,7 @@ router.post('/', function(req, res, next){
       console.log(sqlString);
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/orders');
         }else{   
           console.log("SUCCESS!"); 
@@ -94,7 +95,7 @@ router.post('/', function(req, res, next){
       console.log(sqlString);
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/returns');
         }else{   
           console.log("SUCCESS!"); 
@@ -110,7 +111,7 @@ router.post('/', function(req, res, next){
       WHERE ZAWARTOŚĆ_ZAMÓWIEŃ_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/ordersContents');
         }else{   
           console.log("SUCCESS!"); 
@@ -124,7 +125,7 @@ router.post('/', function(req, res, next){
       WHERE PRZEWOŹNIK_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/carriers');
         }else{   
           console.log("SUCCESS!"); 
@@ -138,7 +139,7 @@ router.post('/', function(req, res, next){
       WHERE STAN_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/states');
         }else{   
           console.log("SUCCESS!"); 
@@ -155,7 +156,7 @@ router.post('/', function(req, res, next){
       WHERE KLIENT_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/clients');
         }else{   
           console.log("SUCCESS!"); 
@@ -170,7 +171,7 @@ router.post('/', function(req, res, next){
       WHERE REKLAMACJE_ID = ${data[key][0]["val"]}`;
       connection.query(sqlString, function(err, rows){
         if(err){;
-          req.flash('message', err.message);
+          req.flash('message', getError.getNiceError(err.message));
           res.redirect('/complaints');
         }else{   
           console.log("SUCCESS!"); 

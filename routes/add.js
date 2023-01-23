@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var connection  = require('../public/javascripts/database.js');
+let getError = require('../public/javascripts/errorHandler.js')
  
  
 router.post('/', function(req, res, next) {
@@ -51,7 +52,7 @@ router.post('/', function(req, res, next) {
 
             connection.query(sqlString, function(err, rows){
               if(err){
-                req.flash('message', err.message);
+                req.flash('message', getError.getNiceError(err.message));
                 res.redirect('/products');
               }else{   
                 console.log("SUCCESS: MAGAZYN UPDATED!"); 
@@ -63,7 +64,7 @@ router.post('/', function(req, res, next) {
             var sqlString = `INSERT INTO MAGAZYN(ILOŚĆ, PRODUKT_PRODUKT_ID) VALUES(${data[key][1]}, ${data[key][0]})`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/');
                 }else{   
                   console.log("SUCCESS: MAGAZYN UPDATED!"); 
@@ -75,7 +76,7 @@ router.post('/', function(req, res, next) {
             var sqlString = `INSERT INTO KATEGORIE(KATEGORIA) VALUES('${data[key]}')`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/categories');
                 }else{   
                   console.log("SUCCESS: KATEGORIA DODANA!"); 
@@ -120,7 +121,7 @@ router.post('/', function(req, res, next) {
             sqlString += `)`;
             connection.query(sqlString, function(err, rows){
               if(err){
-                req.flash('message', err.message);
+                req.flash('message', getError.getNiceError(err.message));
                 res.redirect('/orders');
               }else{   
                 console.log("SUCCESS!"); 
@@ -137,7 +138,7 @@ router.post('/', function(req, res, next) {
               (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][2]}'))`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/returns');
                 }else{   
                   console.log("SUCCESS!"); 
@@ -152,7 +153,7 @@ router.post('/', function(req, res, next) {
               ${data[key][2]})`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/ordersContents');
                 }else{   
                   console.log("SUCCESS!"); 
@@ -165,7 +166,7 @@ router.post('/', function(req, res, next) {
               '${data[key]}')`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/carriers');
                 }else{   
                   console.log("SUCCESS!"); 
@@ -178,7 +179,7 @@ router.post('/', function(req, res, next) {
               '${data[key]}')`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/states');
                 }else{   
                   console.log("SUCCESS!"); 
@@ -191,7 +192,7 @@ router.post('/', function(req, res, next) {
               '${data[key][0]}','${data[key][1]}','${data[key][2]}','${data[key][3]}')`;
             connection.query(sqlString, function(err, rows){
                 if(err){
-                  req.flash('message', err.message);
+                  req.flash('message', getError.getNiceError(err.message));
                   res.redirect('/clients');
                 }else{   
                   console.log("SUCCESS!"); 
@@ -205,7 +206,7 @@ router.post('/', function(req, res, next) {
             (SELECT STAN_ID FROM STANY WHERE NAZWA_STANU = '${data[key][1]}'))`;
           connection.query(sqlString, function(err, rows){
               if(err){
-                req.flash('message', err.message);
+                req.flash('message', getError.getNiceError(err.message));
                 res.redirect('/complaints');
               }else{   
                 console.log("SUCCESS!"); 
