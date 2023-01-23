@@ -131,11 +131,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <form action='/add' method="post">
+                            <form action='/search' method="post">
                                 <td><label type="hidden" size="5"/></td>
                                 <td><input name="produkt" size="5"/></td>
                                 <td>
                                     <select name="produkt" siez="5">
+                                            <option></option>
                                             <% if(categories.length){
                                                 for(var i = 0; i< categories.length; i++) {%>  
                                                     <option> <%=categories[i].KATEGORIA%></option>

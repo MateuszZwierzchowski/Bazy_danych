@@ -194,15 +194,21 @@ function getCategories(res, req, next) {
 
 
 function getProducts(res, req, next) {
+    var search = req.flash('search');
+    if (search.length == 0) search = "";
+    else search = search[0];
+
     let sql = `SELECT P.PRODUKT_ID, K.KATEGORIA, P.MARKA, P.MODEL, P.CENA, P.PROCESOR, P.MOC, P.WAGA, P.PRZEKĄTNA_EKRANU, P.ROZDZIELCZOŚĆ 
-    FROM mydb.PRODUKT P LEFT OUTER JOIN mydb.KATEGORIE K ON P.KATEGORIE_KATEGORIA_ID = K.KATEGORIA_ID`;
+    FROM mydb.PRODUKT P LEFT OUTER JOIN mydb.KATEGORIE K ON P.KATEGORIE_KATEGORIA_ID = K.KATEGORIA_ID ${search}`;
+
+    console.log(sql);
 
     connection.query(sql, function(err1, mpRows){
         function getCategory(res, req, mpRows) {
             let sql = `SELECT KATEGORIA FROM KATEGORIE`;
             connection.query(sql, function(err2, kRows){
                 if(err2) {
-                    res.render('products', {page_title:"error2", warehouse: ''});
+                    res.render('products', {page_title:"error2", warehouse: '', message: "ERROR", categories: ''});
                 }    
                 else {
                     const mess = req.flash('message');
@@ -213,7 +219,7 @@ function getProducts(res, req, next) {
         }
         if(err1){
             req.flash('error', err1); 
-            res.render('products', {page_title:"error1", warehouse: ''});   
+            res.render('products', {page_title:"error1", warehouse: '', message: "ERROR", categories: ''});   
             return;
         }
         getCategory(res, req, mpRows);
