@@ -12,7 +12,7 @@ function getComplaints(res, req, next) {
             let sql2 = `SELECT NAZWA_STANU FROM STANY`;
             connection.query(sql2, function (err2, rows2) {
                 if (err2) {
-                    res.render('complaints', { page_title: "error2", warehouse: '' });
+                    res.render('complaints', { page_title: "error2", warehouse: '', message: getError.getNiceError(err2.message)});
                 }
                 else {
                     const mess = req.flash('message');
@@ -22,8 +22,7 @@ function getComplaints(res, req, next) {
             });
         }
         if(err1){
-            req.flash('error', getError.getNiceError(err1.message)); 
-            res.render('complaints', {page_title:"error1", warehouse: ''});   
+            res.render('complaints', {page_title:"error1", warehouse: '', message: getError.getNiceError(err1.message)});   
             return;
         } 
         getStates(res, req, rows1);
@@ -35,8 +34,7 @@ function getCarriers(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', getError.getNiceError(err.message)); 
-            res.render('carriers', {page_title:"error", warehouse: ''});   
+            res.render('carriers', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
@@ -52,8 +50,7 @@ function getClients(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', getError.getNiceError(err.message)); 
-            res.render('clients', {page_title:"error", warehouse: ''});   
+            res.render('clients', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
@@ -69,8 +66,7 @@ function getStates(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', getError.getNiceError(err.message)); 
-            res.render('states', {page_title:"error", warehouse: ''});   
+            res.render('states', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
@@ -91,7 +87,7 @@ function getReturns(res, req, next) {
             let sql2 = `SELECT NAZWA_STANU FROM STANY`;
             connection.query(sql2, function (err2, rows2) {
                 if (err2) {
-                    res.render('returns', { page_title: "error2", warehouse: '' });
+                    res.render('returns', { page_title: "error2", warehouse: '', message: getError.getNiceError(err2.message)});
                 }
                 else {
                     const mess = req.flash('message');
@@ -100,9 +96,8 @@ function getReturns(res, req, next) {
                 }
             });
         }
-        if(err1){
-            req.flash('error', getError.getNiceError(err1.message)); 
-            res.render('complaints', {page_title:"error1", warehouse: ''});   
+        if(err1){ 
+            res.render('complaints', {page_title:"error1", warehouse: '', message: getError.getNiceError(err1.message)});   
             return;
         } 
         getStates(res, req, rows1);
@@ -119,8 +114,7 @@ function getOrdersContents(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', getError.getNiceError(err.message)); 
-            res.render('ordersContents', {page_title:"error", warehouse: ''});   
+            res.render('ordersContents', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
@@ -146,7 +140,7 @@ function getOrders(res, req, next) {
                     let sql3 = `SELECT NAZWA_STANU FROM STANY`;
                     connection.query(sql3, function (err3, rows3) {
                         if (err3) {
-                            res.render('orders', { page_title: "error3", warehouse: '' });
+                            res.render('orders', { page_title: "error3", warehouse: '', message: getError.getNiceError(err3.message)});
                         }
                         else {
                             var mess = req.flash('message');
@@ -160,14 +154,13 @@ function getOrders(res, req, next) {
                     });
                 }
                 if (err2) {
-                    res.render('orders', { page_title: "error2", warehouse: '' });
+                    res.render('orders', { page_title: "error2", warehouse: '', message: getError.getNiceError(err2.message)});
                 }
                 getStates(res, req, rows2, rows1);
             });
         }
         if (err1) {
-            req.flash('error', getError.getNiceError(err1.message));
-            res.render('orders', { page_title: "error1", warehouse: '' });
+            res.render('orders', { page_title: "error1", warehouse: '', message: getError.getNiceError(err1.message) });
             return;
         }
         getCarriers(res, req, rows1);
@@ -181,8 +174,7 @@ function getCategories(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
-            res.render('categories', {page_title:"error", warehouse: ''});   
+            res.render('categories', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
@@ -209,7 +201,7 @@ function getProducts(res, req, next) {
             let sql = `SELECT KATEGORIA FROM KATEGORIE`;
             connection.query(sql, function(err2, kRows){
                 if(err2) {
-                    res.render('products', {page_title:"error2", warehouse: '', message: "ERROR", categories: ''});
+                    res.render('products', {page_title:"error2", warehouse: '', categories: '', message: getError.getNiceError(err2.message)});
                 }    
                 else {
                     const mess = req.flash('message');
@@ -219,8 +211,7 @@ function getProducts(res, req, next) {
             });
         }
         if(err1){
-            req.flash('error', err1); 
-            res.render('products', {page_title:"error1", warehouse: '', message: "ERROR", categories: ''});   
+            res.render('products', {page_title:"error1", warehouse: '', categories: '', message: getError.getNiceError(err1.message)});   
             return;
         }
         getCategory(res, req, mpRows);
@@ -236,8 +227,7 @@ function getWarehouse(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
-            res.render('warehouse', {page_title:"error", warehouse: ''});   
+            res.render('warehouse', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
             const mess = req.flash('message');
