@@ -1,4 +1,5 @@
 var connection = require('./database');
+let getError = require('../public/javascripts/errorHandler.js')
 
 function getComplaints(res, req, next) {
     let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
@@ -21,7 +22,7 @@ function getComplaints(res, req, next) {
             });
         }
         if(err1){
-            req.flash('error', err1); 
+            req.flash('error', getError.getNiceError(err1.message)); 
             res.render('complaints', {page_title:"error1", warehouse: ''});   
             return;
         } 
@@ -34,7 +35,7 @@ function getCarriers(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
+            req.flash('error', getError.getNiceError(err.message)); 
             res.render('carriers', {page_title:"error", warehouse: ''});   
             return;
         } else {
@@ -51,7 +52,7 @@ function getClients(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
+            req.flash('error', getError.getNiceError(err.message)); 
             res.render('clients', {page_title:"error", warehouse: ''});   
             return;
         } else {
@@ -68,7 +69,7 @@ function getStates(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
+            req.flash('error', getError.getNiceError(err.message)); 
             res.render('states', {page_title:"error", warehouse: ''});   
             return;
         } else {
@@ -100,7 +101,7 @@ function getReturns(res, req, next) {
             });
         }
         if(err1){
-            req.flash('error', err1); 
+            req.flash('error', getError.getNiceError(err1.message)); 
             res.render('complaints', {page_title:"error1", warehouse: ''});   
             return;
         } 
@@ -118,7 +119,7 @@ function getOrdersContents(res, req, next) {
 
     connection.query(sql, function(err, rows){
         if(err){
-            req.flash('error', err); 
+            req.flash('error', getError.getNiceError(err.message)); 
             res.render('ordersContents', {page_title:"error", warehouse: ''});   
             return;
         } else {
@@ -165,7 +166,7 @@ function getOrders(res, req, next) {
             });
         }
         if (err1) {
-            req.flash('error', err1);
+            req.flash('error', getError.getNiceError(err1.message));
             res.render('orders', { page_title: "error1", warehouse: '' });
             return;
         }
