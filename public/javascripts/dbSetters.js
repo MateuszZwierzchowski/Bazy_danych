@@ -1,5 +1,5 @@
 var connection = require('./database');
-let getError = require('../public/javascripts/errorHandler.js')
+let getError = require('./errorHandler.js')
 
 function getComplaints(res, req, next) {
     let sql = `SELECT R.Reklamacje_ID, R.Zamówienia_Zamówienie_ID, S.NAZWA_STANU 
