@@ -107,6 +107,61 @@
                     </table>
                 </div>
 
+
+
+                <div class="tab-body2" id="tab3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>PRODUKT ID</th>
+                            <th>KATEGORIA</th>
+                            <th>MARKA</th>
+                            <th>MODEL</th>
+                            <th>CENA</th>
+                            <th>WAGA</th>
+                            <th>PROCESOR</th>
+                            <th>MOC</th>
+                            <th>PRZEKĄTNA EKRANU</th>
+                            <th>ROZDZIELCZOŚĆ</th>
+                            <th>KARTA_GRAFICZNA</th>
+                            <th>ILOŚĆ_PAMIĘCI_RAM</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <form action='/add' method="post">
+                                <td><label type="hidden" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td>
+                                    <select name="produkt" siez="5">
+                                            <% if(categories.length){
+                                                for(var i = 0; i< categories.length; i++) {%>  
+                                                    <option> <%=categories[i].KATEGORIA%></option>
+                                                <% }
+                                            }%>  
+                                    </select>
+                                </td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input name="produkt" size="5"/></td>
+                                <td><input type="submit" value="Search!"></td>  
+                            </form>
+                        </tr> 
+                        </tbody>
+                    </table>
+                </div>
+
+                
+
                 <div class="tab-body" id="tab1">
                     <table class="table">
                         <thead>
