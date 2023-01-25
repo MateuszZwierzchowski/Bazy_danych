@@ -45,6 +45,7 @@ var delRouter = require('./routes/delete.js');
 var sortRouter = require('./routes/sort.js');
 var summaryRouter = require('./routes/summary.js');
 var searchRouter = require('./routes/search.js');
+var sumRouter = require('./routes/sumAll.js');
 
 app.use('/', warehouseExpressRouter);
 app.use('/products', productsExpressRouter);
@@ -62,6 +63,7 @@ app.use('/delete', delRouter);
 app.use('/sort', sortRouter);
 app.use('/summary', summaryRouter);
 app.use('/search', searchRouter);
+app.use('/sumAll', sumRouter);
 
 // catch 404 and forward to error handler
 app.use(function(err, req, res, next) {

@@ -78,6 +78,21 @@
                                 <td><input type="submit" value="Add!"></td>  
                             </form>
                         </tr> 
+                        <tr>
+                            <form action="/sumAll" method="post">
+                                <td><label>Wartość magazynu: </label></td>
+                                <td><input type="submit" value="Get!"></td> 
+                            </form>
+                            <td>
+                                <div>
+                                    <% if(sumAll.length) { %>
+                                        <label>
+                                            <%= sumAll[0].MAGAZYN %>
+                                        </label>
+                                    <% }%>
+                                </div> 
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

@@ -230,9 +230,13 @@ function getWarehouse(res, req, next) {
             res.render('warehouse', {page_title:"error", warehouse: '', message: getError.getNiceError(err.message)});   
             return;
         } else {
-            const mess = req.flash('message');
-            if (mess.length == 0) res.render('warehouse', {page_title:"succes", warehouse: rows, message: ""});
-            else res.render('warehouse', {page_title:"succes", warehouse: rows, message: mess[0]});
+            var mess = req.flash('message');
+            if (mess.length == 0) mess = "";
+            else mess = mess[0];
+            var summ = req.flash('sumAll');
+            if (summ.length == 0) summ = "";
+            console.log(summ, "wsad", mess)
+            res.render('warehouse', {page_title:"succes", warehouse: rows, message: mess, sumAll: summ});
         }
     });
 }
